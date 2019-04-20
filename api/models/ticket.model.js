@@ -18,7 +18,10 @@ const ticketSchema= mongoose.Schema({
     amount: Number,
     payment:{
         type: Number,
-        cardNo: Number,
+        cardNo: {
+            type: Number,
+            required: 'true'
+        },
         cardType: String,
         required:[true, " Payment field is empty"]
     }
