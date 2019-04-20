@@ -7,7 +7,7 @@ const ticketSchema= mongoose.Schema({
     },
     quantity: {
        type: Number,
-       required:[true, 1]
+       required: true
 
     },
     email: {
@@ -17,13 +17,12 @@ const ticketSchema= mongoose.Schema({
     },
     amount: Number,
     payment:{
-        type: Number,
+
         cardNo: {
             type: Number,
             required: 'true'
         },
         cardType: String,
-        required:[true, " Payment field is empty"]
     }
 
 });
@@ -34,4 +33,4 @@ ticketSchema.path('email').validate((val) => {
 }, 'Invalid e-mail.');
 
 
-mongoose.model('Ticket', ticketSchema);
+module.exports=mongoose.model('Ticket', ticketSchema);

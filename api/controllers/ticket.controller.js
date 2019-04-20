@@ -1,20 +1,13 @@
 const Ticket = require('../models/ticket.model');
 
-// Create and save a new note
+// Create and save a new ticket
 exports.create = (request, response) => {
-	const fullName = request.body.fullName;
-    const quantity = request.body.quantity;
-    const email=reques.body.email;
-    const amount= request.body.amount;
-    const payment=request.body.payment;
-
-	const ticket = new Ticket({
-		fullName,
-        quantity,
-        email,
-        amount,
-        payment
-	});
+	const ticket= new Ticket();
+	ticket.fullName = request.body.fullName,
+     ticket.quantity = request.body.quantity;
+     ticket.email=request.body.email;
+    ticket.amount= request.body.amount;
+    ticket.payment=request.body.payment;
 
 	ticket.save().then((data) => response.json(data)).catch((error) =>
 		response.status(500).json({
@@ -26,9 +19,26 @@ exports.create = (request, response) => {
 	);
 };
 
-// Retrieve and return all sessions
+// Retrieve and return all tickets
 exports.findAll = (request, response) => {
 	Ticket.find()
+		.then((ticket) => {
+			response.json(ticket);
+		})
+		.catch((error) =>
+			response.status(500).json({
+				error: {
+					code: 500,
+					message: error.message || 'Error retrieving sessions'
+				}
+			})
+		);
+};
+
+//Retrieve and return one ticket related to the id
+exports.findOne = (request, response) => {
+	const id= request.params.id;
+	Ticket.findOne({id})
 		.then((ticket) => {
 			response.json(ticket);
 		})
