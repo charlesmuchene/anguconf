@@ -6,6 +6,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
+const ApiError = require('./models/error.model');
 
 // Routes
 const sessionRouter = require('./routes/session.routes');
@@ -38,7 +39,7 @@ app.get('/', (req, res) => {
 	});
 });
 
-app.use('/sessions', sessionRouter);
+app.use('/api/sessions', sessionRouter);
 
 app.use((request, response, next) => {
 	next(createError(404, "Couldn't find the page you're looking for"));
@@ -48,12 +49,7 @@ app.use((request, response, next) => {
 
 app.use((error, request, response, next) => {
 	const code = error.status || 500;
-	response.status(code).json({
-		error: {
-			code: code,
-			message: error.message
-		}
-	});
+	response.status(code).json(new ApiError(code, error.message || 'Unknown server error'));
 });
 
 /// Boot app
