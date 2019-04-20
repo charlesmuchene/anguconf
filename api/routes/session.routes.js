@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const session = require('../controllers/user.controller.js');
+const session = require('../controllers/session.controller.js');
 
 // Retrive all sessions
 router.get('/', session.findAll);
