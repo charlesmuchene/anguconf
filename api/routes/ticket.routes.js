@@ -6,7 +6,7 @@ const ticket = require('../controllers/ticket.controller.js');
 router.get('/', ticket.findAll);
 
 // Retrieve ticket with the given id
-// router.get('/:ticketId', ticket.findOne);
+router.get('/:ticketId', ticket.findOne);
 
 // Create ticket
 router.post('/', ticket.create);

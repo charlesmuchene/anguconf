@@ -7,9 +7,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
 
+
 // Routes
 const sessionRouter = require('./routes/session.routes');
-
+const ticketRouter = require('./routes/ticket.routes'	);
 /// Configuration
 
 mongoose
@@ -39,6 +40,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/sessions', sessionRouter);
+app.use('/tickets', ticketRouter);
 
 app.use((request, response, next) => {
 	next(createError(404, "Couldn't find the page you're looking for"));
