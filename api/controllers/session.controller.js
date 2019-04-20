@@ -21,7 +21,7 @@ exports.create = (request, response) => {
 };
 
 // Retrieve and return all sessions
-exports.findAll = (request, reponse) => {
+exports.findAll = (request, response) => {
 	Session.find()
 		.then((sessions) => {
 			response.json(sessions);
