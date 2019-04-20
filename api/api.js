@@ -1,5 +1,12 @@
+require('dotenv').config({ debug: process.env.DEBUG });
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+mongoose
+	.connect(process.env.DB_URI, { useNewUrlParser: true })
+	.then(() => console.log('Connected to db.'))
+	.catch((error) => console.log(`Error connecting to db: ${error.message}`));
 
 // create express app
 const app = express();
