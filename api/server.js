@@ -2,13 +2,16 @@
 
 // Modules
 require('dotenv').config({ debug: process.env.DEBUG });
+const fs = require('fs');
+const path = require('path');
+const morgan = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
 const ApiError = require('./models/error.model');
 
-// Routes
+// Route dependencies
 const sessionRouter = require('./routes/session.routes');
 
 /// Configuration
@@ -18,6 +21,8 @@ mongoose
 	.then(() => console.log('Connected to db.'))
 	.catch((error) => console.log(`Error connecting to db: ${error.message}`));
 
+const appLogStream = fs.createWriteStream(path.join(__dirname, 'app.log'), { flags: 'a' });
+
 /// Setup
 
 // create express app
@@ -25,6 +30,8 @@ const app = express();
 
 /// Middleware
 
+// logger
+app.use(morgan('combined', { stream: appLogStream }));
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
