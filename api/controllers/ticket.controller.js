@@ -59,7 +59,7 @@ exports.findOne = (request, response) => {
 exports.Delete = (request, response) => {
 	const id= request.params.id;
 	console.log(id)
-	Ticket.remove(id)
+	Ticket.findByIdAndRemove(id)
 		.then((ticket) => {
 			response.json(ticket);
 		})
