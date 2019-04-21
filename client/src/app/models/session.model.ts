@@ -1,5 +1,5 @@
 export class Session {
-	userattending = true;
+	userattending = false;
 	attendingTitle = 'Not attending';
 	constructor(public title: string, public content: string) {}
 }

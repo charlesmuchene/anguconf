@@ -14,23 +14,30 @@ export class SessionsComponent implements OnInit {
 		new Session(`Session thred`, 'Content')
 	];
 	userSessions: Session[] = [];
+	private userList = 'user-list';
 	constructor() {}
 
 	ngOnInit() {}
 
 	drop(event: CdkDragDrop<Session[]>) {
-		if (event.previousContainer !== event.container)
+		if (event.previousContainer !== event.container) {
 			transferArrayItem(
 				event.previousContainer.data,
 				event.container.data,
 				event.previousIndex,
 				event.currentIndex
 			);
-		else moveItemInArray(this.allSessions, event.previousIndex, event.currentIndex);
+			const attending = event.container.id === this.userList;
+			this.changeAttendance(attending, event.item.data);
+		} else {
+			moveItemInArray(this.allSessions, event.previousIndex, event.currentIndex);
+		}
+
+		// TODO when empty, give prompt
+		// TODO Save the state in redux
 	}
 
-	// TODO
-	private enableAttending(attending: boolean, session: Session) {
+	private changeAttendance(attending: boolean, session: Session) {
 		session.userattending = attending;
 		session.attendingTitle = attending ? 'Attending' : 'Not attending';
 	}
