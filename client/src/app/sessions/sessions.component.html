@@ -3,7 +3,7 @@
     (cdkDropListDropped)="drop($event)" [cdkDropListData]="allSessions"
     #allList="cdkDropList" [cdkDropListConnectedTo]="userList">
     <mat-card cdkDrag *ngFor="let session of allSessions"
-      [cdkDragData]="session">
+      [cdkDragData]="session" class="draggable">
       <mat-card-header>
         <mat-card-title>{{session.title}}</mat-card-title>
         <mat-card-subtitle>{{session.speaker}}</mat-card-subtitle>
@@ -23,7 +23,7 @@
     (cdkDropListDropped)="drop($event)" [cdkDropListData]="userSessions"
     #userList="cdkDropList" [cdkDropListConnectedTo]="allList">
     <mat-card cdkDrag *ngFor="let session of userSessions"
-      [cdkDragData]="session">
+      [cdkDragData]="session" class="draggable">
       <mat-card-header>
         <mat-card-title>{{session.title}}</mat-card-title>
         <mat-card-subtitle>{{session.speaker}}</mat-card-subtitle>
