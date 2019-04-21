@@ -1,1 +1,10 @@
 @import "~@angular/material/prebuilt-themes/purple-green.css";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+* {
+	font-family: 'Roboto', sans-serif;
+}
+
+body {
+	margin: 0;
+}
