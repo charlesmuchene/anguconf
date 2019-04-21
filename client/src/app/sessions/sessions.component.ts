@@ -22,7 +22,7 @@ export class SessionsComponent implements OnInit {
 	constructor() {}
 
 	ngOnInit() {
-		console.log(this.allList.data)
+		console.log(this.allList.data);
 	}
 
 	drop(event: CdkDragDrop<Session[]>) {
@@ -37,8 +37,6 @@ export class SessionsComponent implements OnInit {
 		} else {
 			moveItemInArray(this.allSessions, event.previousIndex, event.currentIndex);
 		}
-
-		// TODO Save the state in redux
 	}
 
 	private transferItem(
@@ -63,5 +61,9 @@ export class SessionsComponent implements OnInit {
 		const previous = inUserList ? this.userList : this.allList;
 		const current = inUserList ? this.allList : this.userList;
 		this.transferItem(session, previous, current, index, 0);
+	}
+
+	private addSession() {
+		console.log('Add session');
 	}
 }

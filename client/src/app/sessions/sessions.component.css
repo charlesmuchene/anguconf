@@ -5,8 +5,8 @@
 	border: solid 1px #ccc;
 	background: white;
 	border-radius: 4px;
-	overflow: hidden;
 	padding: 10px;
+	position: relative;
 }
 
 .content-container {
@@ -63,4 +63,13 @@ mat-card {
 
 h1 {
 	text-align: center;
+}
+
+#add-session-btn {
+	position: absolute;
+	color: white;
+	font-weight: bold;
+	font-size: 2em;
+	right: -30px;
+	top: -30px;
 }
