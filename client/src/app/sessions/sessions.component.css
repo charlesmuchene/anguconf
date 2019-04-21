@@ -1,0 +1,14 @@
+.row {
+	flex: 50%;
+	margin: 30px;
+}
+
+.content-container {
+	display: flex;
+	width: 80%;
+	margin: auto;
+}
+
+mat-card {
+	margin-bottom: 20px;
+}

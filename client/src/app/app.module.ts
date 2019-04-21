@@ -1,3 +1,4 @@
+import { SessionsModule } from './sessions/sessions.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -8,7 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
 	declarations: [ AppComponent ],
-	imports: [ BrowserModule, AppRoutingModule, MatToolbarModule, BrowserAnimationsModule ],
+	imports: [ BrowserModule, AppRoutingModule, MatToolbarModule, BrowserAnimationsModule, SessionsModule ],
 	providers: [],
 	bootstrap: [ AppComponent ]
 })
