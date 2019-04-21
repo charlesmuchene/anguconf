@@ -9,6 +9,7 @@ const createError = require('http-errors');
 
 // Routes
 const sessionRouter = require('./routes/session.routes');
+const userRouter=require('./routes/user.routes')
 
 /// Configuration
 
@@ -38,7 +39,9 @@ app.get('/', (req, res) => {
 	});
 });
 
+app.use('/login',userRouter);
 app.use('/sessions', sessionRouter);
+
 
 app.use((request, response, next) => {
 	next(createError(404, "Couldn't find the page you're looking for"));
