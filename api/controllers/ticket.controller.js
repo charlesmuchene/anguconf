@@ -11,7 +11,10 @@ exports.create = (request, response) => {
      fullName, quantity, email,amount, payment
 	})
 
-	ticket.save().then((data) => response.json(data)).catch((error) =>
+	ticket.save().then((data) =>{
+	 response.json(data)
+	})
+	.catch((error) =>
 		response.status(500).json({
 			error: {
 				code: 500,
@@ -23,7 +26,7 @@ exports.create = (request, response) => {
 
 // Retrieve and return all tickets
 exports.findAll = (request, response) => {
-	Ticket.find()
+	Ticket.find().exec()
 		.then((ticket) => {
 			response.json(ticket);
 		})
@@ -40,7 +43,6 @@ exports.findAll = (request, response) => {
 //Retrieve and return one ticket related to the id
 exports.findOne = (request, response) => {
 	const tid= request.params.ticketId;
-	console.log(tid)
 	Ticket.findById(tid)
 		.then((ticket) => {
 			response.json(ticket);
