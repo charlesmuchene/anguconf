@@ -15,6 +15,6 @@ router.post('/', ticket.create);
 // router.put('/:ticketId', ticket.update);
 
 // Delete a ticket with the given id
-// router.delete('/:ticketId', ticket.delete);
+router.delete('/:ticketId', ticket.Delete);
 
 module.exports = router;
