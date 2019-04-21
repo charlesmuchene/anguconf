@@ -6,25 +6,13 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import { TicketsComponent } from './ticket/tickets/tickets.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TicketsComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    RouterModule.forRoot([
-      {
-        path: 'buyTicket', 
-        component:TicketsComponent
-      },
-      
-    ])
-  ],
+  declarations: [AppComponent, TicketsComponent],
+  imports: [BrowserModule, AppRoutingModule, MatToolbarModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent] 
 })
-export class AppModule { }
+export class AppModule {}
