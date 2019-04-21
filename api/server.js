@@ -9,6 +9,9 @@ const createError = require('http-errors');
 const morgan= require('morgan');
 const cors= require('cors');
 
+// create express app
+const app = express();
+
 app.use((req,res,next)=>{
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Allow-Control-Allow-Origin", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
@@ -32,8 +35,7 @@ mongoose
 
 /// Setup
 
-// create express app
-const app = express();
+
 
 /// Middleware
 

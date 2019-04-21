@@ -39,9 +39,9 @@ exports.findAll = (request, response) => {
 
 //Retrieve and return one ticket related to the id
 exports.findOne = (request, response) => {
-	const id= request.params.id;
-	console.log(id)
-	Ticket.findOne(id)
+	const tid= request.params.ticketId;
+	console.log(tid)
+	Ticket.findById(tid)
 		.then((ticket) => {
 			response.json(ticket);
 		})
@@ -55,19 +55,35 @@ exports.findOne = (request, response) => {
 		);
 };
 
-//Deleting a ticket
-exports.Delete = (request, response) => {
-	const id= request.params.id;
-	console.log(id)
-	Ticket.findByIdAndRemove(id)
+//Updating ticket
+exports.update = (request, response) => {
+	const tid= request.params.ticketId;
+	Ticket.findByIdAndUpdate(tid, request.body,{new : true})
 		.then((ticket) => {
-			response.json(ticket);
+			response.status(200).json(ticket);
 		})
 		.catch((error) =>
 			response.status(500).json({
 				error: {
 					code: 500,
 					message: error.message || 'Error retrieving ticket'
+				}
+			})
+		);
+};
+
+//Deleting a ticket
+exports.delete = (request, response) => {
+	const tid= request.params.ticketId;
+	Ticket.findByIdAndRemove(tid)
+		.then((ticket) => {
+			response.status(200).json("Ticket deleted successfully");
+		})
+		.catch((error) =>
+			response.status(500).json({
+				error: {
+					code: 500,
+					message: error.message || 'Error deleting ticket'
 				}
 			})
 		);
