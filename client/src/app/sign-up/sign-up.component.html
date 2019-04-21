@@ -3,7 +3,16 @@
       <div class="list-header-title">Sign-up Form</div>
   
       <form [formGroup]="Sign-upForm" (ngSubmit)="Sign-upForm.valid && onLoginSubmit()" novalidate>
-        <div class="form-container">  
+        <div class="form-container">
+            <mat-form-field>
+                <input id="fullname"
+                       matInput
+                       formControlName="fullname"
+                       [(ngModel)]="user.fullName"
+                       placeholder="Enter your FullName" />
+              </mat-form-field> 
+          
+          
           <mat-form-field>
               <input id="email"
                      matInput
