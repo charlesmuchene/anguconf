@@ -6,7 +6,19 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
+const morgan= require('morgan');
+const cors= require('cors');
 
+app.use((req,res,next)=>{
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Allow-Control-Allow-Origin", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+
+	if( req.method==="OPTIONS"){
+		res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH,DELETE,GET');
+		return res.status(200).json({});
+	}
+	next();
+})
 
 // Routes
 const sessionRouter = require('./routes/session.routes');
@@ -39,6 +51,7 @@ app.get('/', (req, res) => {
 	});
 });
 
+app.use(morgan('dev'));
 app.use('/sessions', sessionRouter);
 app.use('/tickets', ticketRouter);
 
