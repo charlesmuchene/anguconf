@@ -31,7 +31,7 @@ User.find()
     );
 };
 
-//Retrieve and return one ticket related to the id
+//Retrieve and return one user related to the id
 exports.findOne = (request, response) => {
 const id= request.params.id;
 User.findOne({id})
