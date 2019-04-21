@@ -15,7 +15,7 @@ exports.create=(request,response)=>{
 );
 };
 
-// Retrieve and return all tickets
+// Retrieve and return all users
 exports.findAll = (request, response) => {
 User.find()
     .then((user) => {
@@ -46,5 +46,24 @@ User.findOne({id})
             }
         })
     );
+};
+//Deleting a user
+exports.Delete=(request,response)=>{
+    const id=request.params.id;
+    console.log(id);
+    User.remove(id)
+        .then((user)=>{
+            response.json(ticket);
+        })
+        .catch((error)=>
+        response.status(500).json({
+            error:{
+                code:500,
+                message:error.message|| 'Error retrieving user'
+            }
+        })
+        );
+
+
 };
 
