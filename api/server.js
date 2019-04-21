@@ -14,6 +14,11 @@ const ApiError = require('./models/error.model');
 // Route dependencies
 const sessionRouter = require('./routes/session.routes');
 
+/// Setup
+
+// create express app
+const app = express();
+
 /// Configuration
 
 mongoose
@@ -23,10 +28,9 @@ mongoose
 
 const appLogStream = fs.createWriteStream(path.join(__dirname, 'app.log'), { flags: 'a' });
 
-/// Setup
-
-// create express app
-const app = express();
+app.disable('x-powered-by');
+app.enable('strict routing');
+app.enable('case sensitive routing');
 
 /// Middleware
 
