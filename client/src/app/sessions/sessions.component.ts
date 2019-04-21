@@ -21,9 +21,7 @@ export class SessionsComponent implements OnInit {
 
 	constructor() {}
 
-	ngOnInit() {
-		console.log(this.allList.data);
-	}
+	ngOnInit() {}
 
 	drop(event: CdkDragDrop<Session[]>) {
 		if (event.previousContainer !== event.container) {
