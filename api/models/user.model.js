@@ -1,8 +1,12 @@
 const mongoose=require('mongoose');
 const userSchema=mongoose.Schema({
-    fullName:{
+    firstname:{
         type:String,
-        required:'Full name can\'t be empty'
+        required:'first name can\'t be empty'
+    },
+    lastname:{
+        type:String,
+        required:'last name can\'t be empty'
     },
     password:{
         type:String,
@@ -13,8 +17,9 @@ const userSchema=mongoose.Schema({
     email:{
         type:String,
         required:'Email can\'t be empty',
-    }
-
+        unique:true
+    },
+    
 
 });
 userSchema.set('toJSON',{virtuals:true});
