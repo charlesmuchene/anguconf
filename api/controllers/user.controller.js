@@ -9,7 +9,7 @@ exports.create=(request,response)=>{
     response.status(500).json({
         error: {
             code: 500,
-            message: error.message || 'Error while creating a session'
+            message: error.message || 'Error while creating a User'
         }
     })
 );
@@ -25,7 +25,7 @@ User.find()
         response.status(500).json({
             error: {
                 code: 500,
-                message: error.message || 'Error retrieving sessions'
+                message: error.message || 'Error retrieving User'
             }
         })
     );
@@ -42,7 +42,7 @@ User.findOne({id})
         response.status(500).json({
             error: {
                 code: 500,
-                message: error.message || 'Error retrieving Session'
+                message: error.message || 'Error retrieving User'
             }
         })
     );
