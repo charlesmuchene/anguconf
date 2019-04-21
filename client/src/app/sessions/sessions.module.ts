@@ -5,10 +5,18 @@ import { SessionsComponent } from './sessions.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
 	declarations: [ SessionsComponent ],
-	imports: [ CommonModule, MatCardModule, MatSlideToggleModule, BrowserAnimationsModule, DragDropModule ],
+	imports: [
+		CommonModule,
+		MatCardModule,
+		MatSlideToggleModule,
+		BrowserAnimationsModule,
+		DragDropModule,
+		MatDividerModule
+	],
 	exports: [ SessionsComponent ]
 })
 export class SessionsModule {}

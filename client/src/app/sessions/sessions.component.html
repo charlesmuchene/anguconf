@@ -1,46 +1,59 @@
 <div class="content-container">
-  <div id="all-list" class="col" cdkDropList
-    (cdkDropListDropped)="drop($event)" [cdkDropListData]="allSessions"
-    #allList="cdkDropList" [cdkDropListConnectedTo]="userList">
-    <mat-card cdkDrag *ngFor="let session of allSessions; let i= index"
-      [cdkDragData]="session" class="draggable">
-      <mat-card-header>
-        <mat-card-title>{{session.title}}</mat-card-title>
-        <mat-card-subtitle>{{session.speaker}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          {{session.content}}
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <mat-slide-toggle [checked]="session.userattending" #allToggle
-          (toggleChange)="onAttendanceChanged(!allToggle.checked, i, session,
-          'all-list')">{{session.attendingTitle}}</mat-slide-toggle>
-      </mat-card-actions>
-    </mat-card>
+  <div class="col">
+    <h1>All Sessions</h1>
+    <mat-divider></mat-divider>
+    <div id="all-list" class="" cdkDropList
+      (cdkDropListDropped)="drop($event)" [cdkDropListData]="allSessions"
+      #allList="cdkDropList" [cdkDropListConnectedTo]="userList">
+      <div *ngIf="allSessions.length == 0" class="empty">
+        <h3>Hooray! You're attending all sessions!</h3>
+      </div>
+      <mat-card cdkDrag *ngFor="let session of allSessions; let i= index"
+        [cdkDragData]="session" class="draggable">
+        <mat-card-header>
+          <mat-card-title>{{session.title}}</mat-card-title>
+          <mat-card-subtitle>{{session.speaker}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            {{session.content}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <mat-slide-toggle [checked]="session.userattending" #allToggle
+            (toggleChange)="onAttendanceChanged(!allToggle.checked, i, session,
+            'all-list')">{{session.attendingTitle}}</mat-slide-toggle>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
 
-  <div id="user-list" class="col" cdkDropList
-    (cdkDropListDropped)="drop($event)" [cdkDropListData]="userSessions"
-    #userList="cdkDropList" [cdkDropListConnectedTo]="allList">
-    <mat-card cdkDrag *ngFor="let session of userSessions; let i= index"
-      [cdkDragData]="session" class="draggable">
-      <mat-card-header>
-        <mat-card-title>{{session.title}}</mat-card-title>
-        <mat-card-subtitle>{{session.speaker}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          {{session.content}}
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <mat-slide-toggle [checked]="session.userattending" #userToggle
-          (toggleChange)="onAttendanceChanged(!userToggle.checked, i, session,
-          'user-list')">{{session.attendingTitle}}</mat-slide-toggle>
-      </mat-card-actions>
-    </mat-card>
-
+  <div class="col">
+    <h1>Your Sessions</h1>
+    <mat-divider></mat-divider>
+    <div id="user-list" class="" cdkDropList
+      (cdkDropListDropped)="drop($event)" [cdkDropListData]="userSessions"
+      #userList="cdkDropList" [cdkDropListConnectedTo]="allList">
+      <div *ngIf="userSessions.length == 0" class="empty">
+        <h3>No sessions! 🤷🏾‍♂️ Drag to add.</h3>
+      </div>
+      <mat-card cdkDrag *ngFor="let session of userSessions; let i= index"
+        [cdkDragData]="session" class="draggable">
+        <mat-card-header>
+          <mat-card-title>{{session.title}}</mat-card-title>
+          <mat-card-subtitle>{{session.speaker}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            {{session.content}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <mat-slide-toggle [checked]="session.userattending" #userToggle
+            (toggleChange)="onAttendanceChanged(!userToggle.checked, i, session,
+            'user-list')">{{session.attendingTitle}}</mat-slide-toggle>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
 </div>

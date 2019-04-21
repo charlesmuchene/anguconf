@@ -21,7 +21,9 @@ export class SessionsComponent implements OnInit {
 
 	constructor() {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		console.log(this.allList.data)
+	}
 
 	drop(event: CdkDragDrop<Session[]>) {
 		if (event.previousContainer !== event.container) {
@@ -36,7 +38,6 @@ export class SessionsComponent implements OnInit {
 			moveItemInArray(this.allSessions, event.previousIndex, event.currentIndex);
 		}
 
-		// TODO when empty, give prompt
 		// TODO Save the state in redux
 	}
 
