@@ -1,8 +1,7 @@
-const Ticket = require('../models/ticket.model.js');
+const Ticket = require('../models/ticket.model');
 
 // Create and save a new ticket
 exports.create = (request, response) => {
-	// const ticket= new Ticket();
 	const fullName = request.body.fullName;
     const quantity = request.body.quantity;
 	const email=request.body.email;
@@ -32,7 +31,7 @@ exports.findAll = (request, response) => {
 			response.status(500).json({
 				error: {
 					code: 500,
-					message: error.message || 'Error retrieving sessions'
+					message: error.message || 'Error retrieving tickets'
 				}
 			})
 		);
@@ -43,6 +42,24 @@ exports.findOne = (request, response) => {
 	const id= request.params.id;
 	console.log(id)
 	Ticket.findOne(id)
+		.then((ticket) => {
+			response.json(ticket);
+		})
+		.catch((error) =>
+			response.status(500).json({
+				error: {
+					code: 500,
+					message: error.message || 'Error retrieving ticket'
+				}
+			})
+		);
+};
+
+//Deleting a ticket
+exports.Delete = (request, response) => {
+	const id= request.params.id;
+	console.log(id)
+	Ticket.remove(id)
 		.then((ticket) => {
 			response.json(ticket);
 		})
