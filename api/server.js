@@ -43,8 +43,8 @@ app.get('/', (req, res) => {
 });
 
 app.use(morgan('dev'));
-app.use('/sessions', sessionRouter);
-app.use('/tickets', ticketRouter);
+app.use('api/sessions', sessionRouter);
+app.use('api/tickets', ticketRouter);
 
 app.use((request, response, next) => {
 	next(createError(404, "Couldn't find the page you're looking for"));

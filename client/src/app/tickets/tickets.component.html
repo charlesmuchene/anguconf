@@ -1,8 +1,12 @@
-<!DOCTYPE html>
+<mat-card>
 
+<mat-card-content>
 <div class="wrapper">
 <form [formGroup]='ticketform' (ngSubmit)="onSubmit()" >
-    <h3> Buying Ticket</h3>
+    <mat-card-header>
+        <mat-card-title>Buying Ticket</mat-card-title>
+        <mat-card-subtitle> To buy a ticket fill the form </mat-card-subtitle>
+      </mat-card-header>
     <div >
         <mat-form-field>
             <input matInput type="text"  placeholder=" Full Name" formControlName="fullName" required>
@@ -41,3 +45,6 @@
   
   </form>
   </div>
+</mat-card-content>
+
+</mat-card>
