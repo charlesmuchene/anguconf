@@ -1,3 +1,4 @@
+import { HomeService } from './home.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
 		MatCheckboxModule,
 		MatButtonModule
 	],
+	providers: [ HomeService ],
 	bootstrap: [ LoginComponent, SignUpComponent ]
 })
 export class HomeModule {}
