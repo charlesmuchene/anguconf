@@ -1,10 +1,12 @@
-
 main {
 	width: 80%;
+	margin: auto;
 }
-.navbar{
-	justify-content: space-between;
+
+#spacer {
+	flex: 1 1 auto;
 }
-span{
-	padding:2rem;
+
+#title {
+	font-size: 1.2em;
 }

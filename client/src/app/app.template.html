@@ -1,10 +1,10 @@
 
 <mat-toolbar color="primary" class="navbar">
-  <div>{{title}}</div>
-  <div>
-    <span> <a routerLink="sign-up">Sign Up</a></span>
-    <span> <a routerLink="login">Login</a></span>
-  </div>
+  <a id="title" mat-button routerLink="/">{{title}}</a>
+  <span id="spacer"></span>
+  <a mat-button routerLink="sign-up">Sign Up</a>
+  <a mat-button routerLink="login">Login</a>
 </mat-toolbar>
-
-<router-outlet></router-outlet>
+<main>
+  <router-outlet></router-outlet>
+</main>
