@@ -1,5 +1,8 @@
+<!DOCTYPE html>
+
 <div class="wrapper">
 <form [formGroup]='ticketform' (ngSubmit)="onSubmit()" >
+    <h3> Buying Ticket</h3>
     <div >
         <mat-form-field>
             <input matInput type="text"  placeholder=" Full Name" formControlName="fullName" required>

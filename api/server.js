@@ -12,17 +12,6 @@ const cors= require('cors');
 // create express app
 const app = express();
 
-app.use((req,res,next)=>{
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Allow-Control-Allow-Origin", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-
-	if( req.method==="OPTIONS"){
-		res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH,DELETE,GET');
-		return res.status(200).json({});
-	}
-	next();
-})
-
 // Routes
 const sessionRouter = require('./routes/session.routes');
 const ticketRouter = require('./routes/ticket.routes'	);
@@ -30,7 +19,7 @@ const ticketRouter = require('./routes/ticket.routes'	);
 
 mongoose
 	.connect(process.env.DB_URI, { useNewUrlParser: true })
-	.then(() => console.log('Connected to db.'))
+	.then(() => console.log('Connected to db...'))
 	.catch((error) => console.log(`Error connecting to db: ${error.message}`));
 
 /// Setup
