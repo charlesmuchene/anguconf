@@ -1,6 +1,6 @@
 mat-card {
 	width: 40%;
-	margin: 40px auto;
+	margin: auto;
 }
 
 form {
@@ -9,4 +9,10 @@ form {
 
 .full-width {
 	width: 100%;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	padding-top: 10%;
 }

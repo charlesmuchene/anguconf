@@ -1,6 +1,11 @@
 main {
-	width: 80%;
+	width: 100%;
 	margin: auto;
+	background-image: initial;
+	background: url('../assets/background.jpeg') no-repeat;
+	background-size: cover;
+	background-position: center;
+	height: 950px;
 }
 
 #spacer {
@@ -9,4 +14,8 @@ main {
 
 #title {
 	font-size: 1.2em;
+}
+
+.home-link {
+	font-size: 0.8em;
 }
