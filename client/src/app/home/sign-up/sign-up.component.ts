@@ -1,5 +1,6 @@
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from '../home.service';
 
 @Component({
 	selector: 'app-sign-up',
@@ -11,7 +12,7 @@ export class SignUpComponent implements OnInit {
 	private emailalreadyexists = 'emailalreadyexists';
 	private unmatchedPasswords = 'unmatchedpasswords';
 
-	constructor(private formBuilder: FormBuilder) {}
+	constructor(private formBuilder: FormBuilder, private homeService: HomeService) {}
 
 	ngOnInit() {
 		this.createForm();

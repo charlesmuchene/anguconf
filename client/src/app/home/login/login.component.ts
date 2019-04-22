@@ -1,3 +1,4 @@
+import { HomeService } from './../home.service';
 import { LoginModel } from '../../models/login.models';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,10 +12,10 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 	user: LoginModel = new LoginModel();
-	loginForm: FormGroup;
+	private loginForm: FormGroup;
 	hide = true;
 
-	constructor(private formBuilder: FormBuilder, private router: Router) {}
+	constructor(private formBuilder: FormBuilder, private router: Router, private homeService: HomeService) {}
 
 	ngOnInit() {
 		this.loginForm = this.formBuilder.group({
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
 	}
 	onLoginSubmit() {
 		alert(this.user.email + '' + this.user.password);
+		// TODO Use homeservice to do api request to login user
 	}
 	show() {
 		this.router.navigateByUrl('sign-up');
