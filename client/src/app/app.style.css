@@ -1,10 +1,36 @@
-
 main {
-	width: 80%;
+	width: 100%;
+	margin: auto;
+	background-image: initial;
+	background: url('../assets/background.jpeg') no-repeat;
+	background-size: cover;
+	background-position: center;
+	height: 950px;
 }
-.navbar{
-	justify-content: space-between;
+
+#spacer {
+	flex: 1 1 auto;
 }
-span{
-	padding:2rem;
+
+#title {
+	font-size: 1.2em;
+}
+
+.home-link {
+	font-size: 0.8em;
+}
+
+#home-info {
+	height: 80%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#home-info > * {
+	color: white;
+	font-weight: bold;
+	font-size: 3em;
+	text-shadow: 2px 2px 3px black;
 }
