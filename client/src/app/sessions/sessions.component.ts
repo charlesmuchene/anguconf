@@ -2,6 +2,7 @@ import { SessionsService } from './sessions.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Session } from '../models/session.model';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList } from '@angular/cdk/drag-drop';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-sessions',
@@ -20,7 +21,7 @@ export class SessionsComponent implements OnInit {
 	@ViewChild('allList') allList: CdkDropList;
 	@ViewChild('userList') userList: CdkDropList;
 
-	constructor(private sessionsService: SessionsService) {
+	constructor(private sessionsService: SessionsService, private router: Router, private route: ActivatedRoute) {
 		sessionsService.getSessions();
 	}
 
@@ -65,6 +66,6 @@ export class SessionsComponent implements OnInit {
 	}
 
 	private addSession() {
-		console.log('Add session');
+		this.router.navigate([ 'create' ], { relativeTo: this.route });
 	}
 }
