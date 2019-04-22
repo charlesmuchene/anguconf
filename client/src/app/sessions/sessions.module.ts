@@ -1,3 +1,4 @@
+import { SessionsService } from './sessions.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DialogComponent } from './dialog.component';
@@ -39,6 +40,7 @@ const routes: Routes = [
 		MatDatepickerModule,
 		RouterModule.forChild(routes)
 	],
+	providers: [ SessionsService ],
 	entryComponents: [ DialogComponent ],
 	bootstrap: [ SessionsComponent ]
 })

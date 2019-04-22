@@ -1,31 +1,33 @@
 import { SessionsService } from './sessions.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Session } from '../models/session.model';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList } from '@angular/cdk/drag-drop';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-sessions',
 	templateUrl: './sessions.component.html',
 	styleUrls: [ './sessions.component.css' ]
 })
-export class SessionsComponent implements OnInit {
-	private allSessions = [
-		new Session(`Session re`, 'Content'),
-		new Session(`Session two`, 'Content'),
-		new Session(`Session thred`, 'Content')
-	];
+export class SessionsComponent implements OnInit, OnDestroy {
+	private allSessions: Session[] = [];
 	private userSessions: Session[] = [];
 	private userListId = 'user-list';
+	private sessionsLoadSubscription: Subscription;
 
 	@ViewChild('allList') allList: CdkDropList;
 	@ViewChild('userList') userList: CdkDropList;
 
 	constructor(private sessionsService: SessionsService, private router: Router, private route: ActivatedRoute) {
-		sessionsService.getSessions();
+		this.getSessions();
 	}
 
 	ngOnInit() {}
+
+	ngOnDestroy(): void {
+		this.sessionsLoadSubscription.unsubscribe();
+	}
 
 	drop(event: CdkDragDrop<Session[]>) {
 		if (event.previousContainer !== event.container) {
@@ -67,5 +69,11 @@ export class SessionsComponent implements OnInit {
 
 	private addSession() {
 		this.router.navigate([ 'create' ], { relativeTo: this.route });
+	}
+
+	private getSessions() {
+		this.sessionsLoadSubscription = this.sessionsService.getSessions().subscribe((sessions) => {
+			this.allSessions = sessions;
+		});
 	}
 }
