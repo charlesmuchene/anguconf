@@ -9,7 +9,7 @@ const createError = require('http-errors');
 
 // Routes
 const sessionRouter = require('./routes/session.routes');
-const userRouter=require('./routes/user.routes')
+const userRouter=require('./routes/user.routes');
 
 /// Configuration
 
