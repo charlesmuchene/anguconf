@@ -1,10 +1,7 @@
-import { TicketsComponent } from './ticket/tickets/tickets.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [
-  {path: 'buyTicket', component: TicketsComponent}
-];
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
