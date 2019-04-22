@@ -1,0 +1,12 @@
+mat-card {
+	width: 40%;
+	margin: 40px auto;
+}
+
+form {
+	margin: 15px;
+}
+
+.full-width {
+	width: 100%;
+}
