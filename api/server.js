@@ -13,6 +13,7 @@ const ApiError = require('./models/error.model');
 
 // Route dependencies
 const sessionRouter = require('./routes/session.routes');
+const userRouter = require('./routes/user.routes');
 
 /// Setup
 
@@ -50,7 +51,8 @@ app.get('/', (req, res) => {
 	});
 });
 
-app.use('/api/sessions', sessionRouter);
+app.use('api/sessions', sessionRouter);
+app.use('api/login', userRouter);
 
 app.use((request, response, next) => {
 	next(createError(404, "Couldn't find the page you're looking for"));
