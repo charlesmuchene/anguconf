@@ -2,6 +2,8 @@ import { LoginModel } from './../models/login.models';
 import { Component, OnInit } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,7 @@ export class LoginComponent implements OnInit {
   hide = true;
 
 
-  constructor(private formBuilder:FormBuilder) { }
+  constructor(private formBuilder:FormBuilder,private router:Router) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -33,5 +35,7 @@ export class LoginComponent implements OnInit {
   onLoginSubmit(){
     alert(this.user.email + ''+ this.user.password);
   }
-
+   show(){
+     this.router.navigateByUrl('sign-up');
+   }
 }

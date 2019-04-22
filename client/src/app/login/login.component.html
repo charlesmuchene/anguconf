@@ -1,9 +1,10 @@
 <div class="medium-list">
     <div class="list-viewer-wrapper">
-      <div class="list-header-title">Login Form</div>
+      
   
       <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onLoginSubmit()" novalidate>
         <div class="form-container">  
+            <div class="list-header-title">Login Form</div>
           <mat-form-field>
               <input id="email"
                      matInput
@@ -12,7 +13,7 @@
                      placeholder="Enter your email" />
             </mat-form-field>
   
-          <mat-form-field>
+          <mat-form-field class="example-full-width">
               <input id="password"
                      matInput
                      formControlName="password"
@@ -27,7 +28,7 @@
             <button mat-button type="submit" 
                     class="mat-raised-button mat-primary" 
                     [disabled]="!loginForm.valid">Login</button>
-            <button mat-button routerLink="/register" class="divider">Sign-up</button>
+            <button mat-button (click)="show()"class="divider">Sign-up</button>
         </div>
       </form>
     </div>

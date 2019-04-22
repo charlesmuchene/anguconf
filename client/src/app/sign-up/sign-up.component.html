@@ -1,27 +1,34 @@
 <div class="medium-list">
     <div class="list-viewer-wrapper">
-      <div class="list-header-title">Sign-up Form</div>
+      <div class="list-header-title"></div>
   
       <form [formGroup]="Sign-upForm" (ngSubmit)="Sign-upForm.valid && onLoginSubmit()" novalidate>
         <div class="form-container">
-            <mat-form-field>
-                <input id="fullname"
+           <div> <mat-form-field>
+                <input id="firstname"
                        matInput
-                       formControlName="fullname"
-                       [(ngModel)]="user.fullName"
-                       placeholder="Enter your FullName" />
-              </mat-form-field> 
+                       formControlName="firstname"
+                       [(ngModel)]="user.firstName"
+                       placeholder="Enter your firstname" />
+              </mat-form-field> </div>
+             <div> <mat-form-field>
+                  <input id="lastname"
+                         matInput
+                         formControlName="lasttname"
+                         [(ngModel)]="user.lasttName"
+                         placeholder="Enter your lastname" />
+                </mat-form-field> </div>
           
           
-          <mat-form-field>
+         <div> <mat-form-field>
               <input id="email"
                      matInput
                      formControlName="email"
                      [(ngModel)]="user.email"
                      placeholder="Enter your email" />
-            </mat-form-field>
+            </mat-form-field></div>
   
-          <mat-form-field>
+         <div> <mat-form-field>
               <input id="password"
                      matInput
                      formControlName="password"
@@ -31,12 +38,14 @@
                 <!-- <mat-icon matSuffix (click)="hide = !hide"> -->
                   <!-- {{hide ? 'visibility' : 'visibility_off'}} -->
                 <!-- </mat-icon> -->
-            </mat-form-field>
-  
-            <button mat-button type="submit" 
+            </mat-form-field></div>
+            
+           <div> <button mat-button type="submit" 
                     class="mat-raised-button mat-primary" 
                     [disabled]="!Sign-upForm.valid">Register</button>
             <!-- <button mat-button routerLink="/Sign-up" class="divider">Sign-up</button> -->
+            <button mat-button  routerLink="/login"  class="divider"> cancel</button>
+          </div>
         </div>
       </form>
     </div>
