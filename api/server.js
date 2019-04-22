@@ -9,10 +9,21 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
+<<<<<<< HEAD
+const morgan= require('morgan');
+const cors= require('cors');
+
+// create express app
+const app = express();
+=======
 const ApiError = require('./models/error.model');
+>>>>>>> master
 
 // Route dependencies
 const sessionRouter = require('./routes/session.routes');
+<<<<<<< HEAD
+const ticketRouter = require('./routes/ticket.routes'	);
+=======
 const userRouter = require('./routes/user.routes');
 
 /// Setup
@@ -20,14 +31,16 @@ const userRouter = require('./routes/user.routes');
 // create express app
 const app = express();
 
+>>>>>>> master
 /// Configuration
 
 mongoose
 	.connect(process.env.DB_URI, { useNewUrlParser: true })
-	.then(() => console.log('Connected to db.'))
+	.then(() => console.log('Connected to db...'))
 	.catch((error) => console.log(`Error connecting to db: ${error.message}`));
 
 const appLogStream = fs.createWriteStream(path.join(__dirname, 'app.log'), { flags: 'a' });
+
 
 app.disable('x-powered-by');
 app.enable('strict routing');
@@ -51,8 +64,14 @@ app.get('/', (req, res) => {
 	});
 });
 
+<<<<<<< HEAD
+app.use(morgan('dev'));
+app.use('api/sessions', sessionRouter);
+app.use('api/tickets', ticketRouter);
+=======
 app.use('api/sessions', sessionRouter);
 app.use('api/login', userRouter);
+>>>>>>> master
 
 app.use((request, response, next) => {
 	next(createError(404, "Couldn't find the page you're looking for"));

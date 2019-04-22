@@ -1,0 +1,12 @@
+.wrapper {
+height:  80vh;
+justify-content: center;
+display: flex ;
+align-items: center;
+width: 50%;
+margin: auto
+
+}
+h3{
+    color : blue
+}
