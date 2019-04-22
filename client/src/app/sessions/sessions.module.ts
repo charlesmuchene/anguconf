@@ -13,9 +13,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './dialog.component';
 
 @NgModule({
-	declarations: [ SessionsComponent, SessionFormComponent ],
+	declarations: [ SessionsComponent, SessionFormComponent, DialogComponent ],
 	imports: [
 		CommonModule,
 		MatCardModule,
@@ -28,9 +30,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 		ReactiveFormsModule,
 		MatInputModule,
 		MatCardModule,
+		MatDialogModule,
 		MatNativeDateModule,
 		MatDatepickerModule
 	],
+	entryComponents: [ DialogComponent ],
 	exports: [ SessionsComponent ]
 })
 export class SessionsModule {}

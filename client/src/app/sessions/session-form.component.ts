@@ -1,6 +1,8 @@
+import { DialogComponent } from './dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
 	selector: 'app-session-form',
@@ -10,7 +12,7 @@ import { Observable } from 'rxjs';
 export class SessionFormComponent implements OnInit {
 	private sessionForm: FormGroup;
 
-	constructor(private formBuilder: FormBuilder) {}
+	constructor(private formBuilder: FormBuilder, private dialog: MatDialog) {}
 
 	ngOnInit() {
 		this.createForm();
@@ -27,13 +29,16 @@ export class SessionFormComponent implements OnInit {
 	private asyncTitleValidator(title: FormControl): Observable<any> | null {
 		// TODO Make ajax call to verify title doesn't exist
 		return null;
-  }
-  
-  private cancel() {
-    confirm('What?')
-  }
+	}
+
+	private cancel() {
+		this.dialog.open(DialogComponent).afterClosed().subscribe((result) => {
+			// TODO route admin to sessions
+		});
+	}
 
 	private onSubmit() {
-		console.log(this.sessionForm.valid);
+		console.log('Submitted', this.sessionForm.valid);
+		// TODO Make ajax call to store session
 	}
 }
