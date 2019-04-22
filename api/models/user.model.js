@@ -1,27 +1,25 @@
 const mongoose=require('mongoose');
+const bcrypt=require('bcryptjs');
 const userSchema=mongoose.Schema({
-    firstname:{
-        type:String,
-        required:'first name can\'t be empty'
-    },
-    lastname:{
-        type:String,
-        required:'last name can\'t be empty'
-    },
-    password:{
-        type:String,
-        required:'Password can\'t be empty',
-        unique: true
-        
-    },
-    email:{
-        type:String,
-        required:'Email can\'t be empty',
-        unique:true
-    },
-    
+    firstname:{type:String,required:true},
+    lastname:{type:String, required:true},
+    email:{type:String, required:true,unique:true},
+    password:{type:String,required:true,unique:true},             
 
 });
+
+userSchema.pre('save',function(next){
+    bcrypt.genSalt(10,(err,salt)=>{
+        bcrypt.hash(this.password,salt,(err,hash)=>{
+            this.password=hash;
+            this.saltSecret=salt;
+            next();
+        });
+    });
+});
+userSchema.methods.verifyPassword=function(password){
+    return bcrypt.compareSync(password, this.password);
+};
 userSchema.set('toJSON',{virtuals:true});
 // validation for email
 userSchema.path('email').validate((val) => {
