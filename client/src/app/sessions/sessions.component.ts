@@ -1,3 +1,4 @@
+import { SessionsService } from './sessions.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Session } from '../models/session.model';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList } from '@angular/cdk/drag-drop';
@@ -19,7 +20,9 @@ export class SessionsComponent implements OnInit {
 	@ViewChild('allList') allList: CdkDropList;
 	@ViewChild('userList') userList: CdkDropList;
 
-	constructor() {}
+	constructor(private sessionsService: SessionsService) {
+		sessionsService.getSessions();
+	}
 
 	ngOnInit() {}
 

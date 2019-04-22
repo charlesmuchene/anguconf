@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ApiService {
-	private url = 'http://localhost:1234';
-	private sessionsUrl = this.url + '/api/sessions';
-
 	constructor(private http: HttpClient) {}
 
-	getSessions() {
-		this.http.get(this.sessionsUrl).subscribe((result) => {
-			console.log(result);
-		});
+	get<T>(url: string): Observable<T> {
+		return this.http.get(url) as Observable<T>;
 	}
 }

@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +21,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 		BrowserAnimationsModule,
 		ReactiveFormsModule,
 		MatInputModule,
-		MatFormFieldModule
+		MatFormFieldModule,
+		HttpClientModule
 	],
 
 	providers: [],
