@@ -13,7 +13,7 @@ const SessionSchema = mongoose.Schema(
 		},
 		time: {
 			type: Date,
-			required: [ true, 'Session data cannot be empty' ]
+			required: [ true, 'Session time cannot be empty' ]
 		}
 	},
 	{

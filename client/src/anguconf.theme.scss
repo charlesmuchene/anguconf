@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+@include mat-core();
+$anguconf-app-primary: mat-palette($mat-teal);
+$anguconf-app-accent: mat-palette($mat-orange, A200, A100, A400);
+$anguconf-app-warn: mat-palette($mat-red);
+
+$anguconf-app-theme: mat-light-theme($anguconf-app-primary, $anguconf-app-accent, $anguconf-app-warn);
+
+@include angular-material-theme($anguconf-app-theme);

@@ -8,14 +8,20 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
 
-
- 
 @NgModule({
 	declarations: [ AppComponent, LoginComponent, SignUpComponent ],
-	imports: [ BrowserModule, AppRoutingModule, MatToolbarModule, BrowserAnimationsModule,ReactiveFormsModule,MatInputModule,MatFormFieldModule],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		MatToolbarModule,
+		BrowserAnimationsModule,
+		ReactiveFormsModule,
+		MatInputModule,
+		MatFormFieldModule
+	],
 	providers: [],
 	bootstrap: [ AppComponent ]
 })
