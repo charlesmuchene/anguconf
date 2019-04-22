@@ -1,7 +1,9 @@
 .wrapper {
-height:  100vh;
+height:  80vh;
 justify-content: center;
 display: flex ;
-align-items: center
+align-items: center;
+width: 50%;
+margin: auto
 
 }

@@ -1,36 +1,38 @@
 <div class="wrapper">
-<form formGroup="['TicketForm']">
+<form [formGroup]='ticketform' (ngSubmit)="onSubmit()" >
     <div >
         <mat-form-field>
-            <input matInput type="text"  placeholder=" Full Name" formControlName="fullName">
+            <input matInput type="text"  placeholder=" Full Name" formControlName="fullName" required>
         </mat-form-field>
        </div>
       <div>
           <mat-form-field>
-          <input type="email" matInput placeholder="Email" formControlName="email">
+          <input type="email" matInput placeholder="Email" formControlName="email" required>
+          
         </mat-form-field>
+        <!-- <div *ngIf="!ticketform.get('email').valid">Invalid Email</div> -->
        </div>
       <div>
         <mat-form-field>
-            <input  matInput type="tel" placeholder="Phone Number" formControlName="phone">
+            <input  matInput type="number" placeholder="Phone Number" formControlName="phone" minlength="10">
         </mat-form-field>
   
       </div>
-      <div>
+      <div formGroupName="payment">
         <div>
             <mat-form-field>
-                <input type="number" matInput placeholder="Card Number" formControlName="cardNo">
+                <input type="number" matInput placeholder="Card Number" formControlName="cardNo" required>
                 </mat-form-field>
         </div>
         <div>
           <mat-form-field>
-        <input type="number" matInput placeholder="Payment Amount" formControlName="amount">
+        <input type="number" matInput placeholder="Payment Amount" formControlName="amount" required>
         </mat-form-field>
         </div>
       </div>
       <div>
-        <button mat-raised-button type="submit" value="Pay">Buy Ticket</button> 
-        <button mat-raised-button type="submit" value="Pay">Cancel Payment</button>
+        <button mat-raised-button type="submit" value="Pay" [disabled]="!ticketform.valid">Buy Ticket</button> 
+        <button mat-raised-button type="reset" value="Pay"  (ngCancel)="onCancel()">Cancel Payment</button>
       </div>
   
   
