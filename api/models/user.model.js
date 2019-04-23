@@ -6,23 +6,23 @@ const userSchema = mongoose.Schema({
 	lastname: { type: String, required: true },
 	email: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
-	role:{ type: String, enum: ['admin', 'user'], default: ['user'] }
+	role:{ type: String, enum: ['admin', 'user'], default: 'user' }
 });
 
 userSchema.pre('save', function(next) {
-	next();
-	// bcrypt.genSalt(10, (err, salt) => {
-	// 	bcrypt.hash(this.password, salt, (err, hash) => {
-	// 		this.password = hash;
-	// 		this.saltSecret = salt;
-	// 		next();
-	// 	});
-	// });
+	bcrypt.genSalt(10, (err, salt) => {
+		bcrypt.hash(this.password, salt, (err, hash) => {
+			this.password = hash;
+			this.saltSecret = salt;
+			next();
+		});
+	});
 });
+
 userSchema.methods.verifyPassword = function(password) {
-	return password === this.password;
-	// return bcrypt.compareSync(password, this.password);
+	return bcrypt.compareSync(password, this.password);
 };
+
 userSchema.set('toJSON', { virtuals: true });
 // validation for email
 userSchema.path('email').validate((val) => {

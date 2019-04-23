@@ -1,47 +1,47 @@
 const User=require('../models/user.model');
+const ApiError = require('../models/error.model');
+const jwt = require('jsonwebtoken');
+
+const secret = process.env.TOKEN_SECRET;
+const tokenHeader = 'token';
+
 //Create and save a new user
 exports.create=(request,response)=>{
     const user=new User();
+
     user.firstname=request.body.firstname,
     user.lastname=request.body.lastname,
     user.password=request.body.password,
     user.email=request.body.email,
 
-    user.save().then((data) => response.json(data))
-    .catch((error) =>response.status(500).json({
-    
-        error: {
-            code: 500,
-            message: error.message || 'Error while creating a User'
-        }
+    user.save().then((data) => {
+        const token = generateToken(user);
+        response.set(tokenHeader, token).json(data)
     })
+    .catch((error) =>response.status(500).json(new ApiError(500, error.message || 'Error while creating a User'))
 );
 };
 
-exports.login = (request, response, next) => {
-    let credentials = req.body;
-	user.findOne({ email: credentials.email }, (err, user) => {
-		if (err) next(err);
-		//Email exists
-		if (user) {
-			if (!user.verifyPassword(credentials.password)) {
-				res.status(400).json({
-					status: 'fail',
-					message: 'Incorrect password!'
-				});
-			} else {
-				// token key
-				const token = jwt.sign({}, RSA_PRIVATE_KEY, {
-					algorithm: 'RS256',
-					expiresIn: 3600
-				});
-			}
-		} else {
-			res.status(400).json({
-				status: 'fail',
-				message: 'username does not exist'
-			});
-		}
+exports.login = (req, res, next) => {
+
+    const { email, password } = req.body;
+
+    console.log(email, password)
+	User.findOne({ email: email }, (err, user) => {
+        if (err) {
+            next(err);
+        }
+        else {
+            const match = user.verifyPassword(password)
+            if (match) {
+                const token = generateToken(user);
+                res.set(tokenHeader, token).json({
+                    message: 'Logged in successfully'
+                })
+            } else {
+                res.status(400).json(new ApiError(400, 'Invalid credentials'))
+            }
+        }
 	});
 }
 
@@ -116,3 +116,11 @@ exports.update=(request,response)=>{
 
 };
 
+function generateToken(user) {
+    return jwt.sign({
+        email: user.email,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        role: user.role
+    }, secret);
+}

@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 	});
 });
 
-app.use('/api/login', userRouter);
+app.use('/api/user', userRouter);
 app.use('/api/tickets', ticketRouter);
 app.use('/api/sessions', sessionRouter);
 
