@@ -10,12 +10,10 @@ export function mainReducer(state: AppState, action: Action): AppState {
 			return Object.assign({}, state, object);
 		}
 		case ACCESS_TOKEN: {
-			state.serverSessions
+			state.serverSessions;
 			const object = {};
 			object[ACCESS_TOKEN] = action.payload || null;
-			const result = Object.assign({}, state, object);
-			console.log('at reducer', result);
-			return result;
+			return Object.assign({}, state, object);
 		}
 	}
 	return state;

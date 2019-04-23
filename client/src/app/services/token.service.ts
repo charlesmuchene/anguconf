@@ -15,7 +15,6 @@ export class TokenService {
 	constructor(private ngRedux: NgRedux<AppState>) {}
 
 	getAccessToken() {
-		console.log('getting token', this.ngRedux.getState());
 		return this.ngRedux.getState().accessToken;
 	}
 
@@ -23,17 +22,13 @@ export class TokenService {
 		this.ngRedux.dispatch<Action>(createAccessTokenAction(token));
 	}
 
-	getUser(): User | null {
+	getUser() {
 		const rawToken = this.ngRedux.getState().accessToken;
 		const token = this.jwtService.decodeToken(rawToken);
-		return null;
+		return token;
 	}
 
 	isLoggedInFromToken(token: string | null): boolean {
 		return this.jwtService.isTokenExpired(token ? token : this.ngRedux.getState().accessToken);
-	}
-
-	private decodeToken(token: string): any {
-		return this.jwtService.decodeToken(token);
 	}
 }

@@ -1,13 +1,11 @@
-import { Action } from './../models/action.model';
-import { SERVER_SESSIONS, createServerSessionsAction } from './../store/actions';
-import { SessionsService } from './sessions.service';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { Session } from '../models/session.model';
-import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList } from '@angular/cdk/drag-drop';
-import { Router, ActivatedRoute } from '@angular/router';
+import { select } from '@angular-redux/store';
 import { Subscription, Observable } from 'rxjs';
-import { NgRedux, select } from '@angular-redux/store';
-import { AppState } from '../store/store';
+import { Session } from '../models/session.model';
+import { SessionsService } from './sessions.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SERVER_SESSIONS, USER_SESSIONS } from './../store/actions';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList } from '@angular/cdk/drag-drop';
 
 @Component({
 	selector: 'app-sessions',
@@ -19,28 +17,24 @@ export class SessionsComponent implements OnInit, OnDestroy {
 	private allSessions: Session[] = [];
 	private userSessions: Session[] = [];
 	private sessionsStoreSubscription: Subscription;
-	private sessionsFetchSubscription: Subscription;
+	private userSessionsStoreSubscription: Subscription;
 
-	@select(SERVER_SESSIONS) serverSessions: Observable<Session[]>;
+	@select(SERVER_SESSIONS) serverSessions$: Observable<Session[]>;
+	@select(USER_SESSIONS) userSessions$: Observable<Session[]>;
 
 	@ViewChild('allList') allList: CdkDropList;
 	@ViewChild('userList') userList: CdkDropList;
 
-	constructor(
-		private sessionsService: SessionsService,
-		private router: Router,
-		private route: ActivatedRoute,
-		private ngRedux: NgRedux<AppState>
-	) {}
+	constructor(private sessionsService: SessionsService, private router: Router, private route: ActivatedRoute) {}
 
 	ngOnInit() {
 		this.registerStoreListeners();
-		this.getSessions();
+		this.sessionsService.getSessions();
 	}
 
 	ngOnDestroy(): void {
 		this.sessionsStoreSubscription.unsubscribe();
-		this.sessionsFetchSubscription.unsubscribe();
+		this.userSessionsStoreSubscription.unsubscribe();
 	}
 
 	drop(event: CdkDragDrop<Session[]>) {
@@ -85,15 +79,13 @@ export class SessionsComponent implements OnInit, OnDestroy {
 		this.router.navigate([ 'create' ], { relativeTo: this.route });
 	}
 
-	private getSessions() {
-		this.sessionsFetchSubscription = this.sessionsService.getSessions().subscribe((sessions) => {
-			this.ngRedux.dispatch<Action>(createServerSessionsAction(sessions));
-		});
-	}
-
 	private registerStoreListeners() {
-		this.sessionsStoreSubscription = this.serverSessions.subscribe((sessions) => {
+		this.sessionsStoreSubscription = this.serverSessions$.subscribe((sessions) => {
 			this.allSessions = sessions || [];
 		});
+
+		this.userSessionsStoreSubscription = this.userSessions$.subscribe(
+			(sessions) => (this.userSessions = sessions || [])
+		);
 	}
 }
