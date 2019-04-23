@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-session-form',
@@ -12,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class SessionFormComponent implements OnInit {
 	private sessionForm: FormGroup;
 
-	constructor(private formBuilder: FormBuilder, private dialog: MatDialog) {}
+	constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private router: Router) {}
 
 	ngOnInit() {
 		this.createForm();
@@ -33,7 +34,7 @@ export class SessionFormComponent implements OnInit {
 
 	private cancel() {
 		this.dialog.open(DialogComponent).afterClosed().subscribe((result) => {
-			// TODO route admin to sessions
+			if (result) this.router.navigateByUrl('/sessions');
 		});
 	}
 
