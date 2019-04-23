@@ -35,10 +35,14 @@ export class SessionsComponent implements OnInit, OnDestroy {
 		private tokenService: TokenService
 	) {}
 
-	ngOnInit() {
-		this.registerStoreListeners();
-		this.sessionsService.getSessions();
-		this.loadUser();
+	ngOnInit() {}
+
+	ngAfterViewInit(): void {
+		setTimeout(() => {
+			this.registerStoreListeners();
+			this.sessionsService.getSessions();
+			this.loadUser();
+		});
 	}
 
 	ngOnDestroy(): void {
