@@ -34,9 +34,11 @@ import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store'
 export class AppModule {
 	constructor(private ngRedux: NgRedux<AppState>, private devTools: DevToolsExtension) {
 		let enhancers = [];
+
 		// TODO Add dev-mode check
 		if (devTools.isEnabled) enhancers = [ ...enhancers, devTools.enhancer() ];
-		ngRedux.configureStore(mainReducer, INITIAL_STATE, [], enhancers);
+
+		ngRedux.configureStore(mainReducer, INITIAL_STATE, []);
 	}
 }
 
