@@ -122,5 +122,7 @@ function generateToken(user) {
         firstname: user.firstname,
         lastname: user.lastname,
         role: user.role
-    }, secret);
+    }, secret, {
+        expiresIn: '1d'
+    });
 }

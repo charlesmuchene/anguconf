@@ -22,6 +22,9 @@ const sessionRouter = require('./routes/session.routes');
 const ticketRouter = require('./routes/ticket.routes');
 const userRouter = require('./routes/user.routes');
 
+// Middleware dependencies
+const authentication = require('./middlewares/authentication');
+
 /// Configuration
 mongoose.set('useCreateIndex', true);
 mongoose
@@ -39,6 +42,7 @@ app.enable('case sensitive routing');
 
 // cors
 app.use(cors());
+
 // logger
 app.use(morgan('combined', { stream: appLogStream }));
 // parse requests of content-type - application/x-www-form-urlencoded
@@ -57,7 +61,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/user', userRouter);
 app.use('/api/tickets', ticketRouter);
-app.use('/api/sessions', sessionRouter);
+app.use('/api/sessions', authentication, sessionRouter);
 
 app.use((request, response, next) => {
 	next(createError(404, "Couldn't find the page you're looking for"));
