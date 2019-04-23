@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgReduxModule, NgRedux } from '@angular-redux/store';
+import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store';
 import { AppState, INITIAL_STATE } from './store/store';
 import { mainReducer } from './store/reducers';
 
@@ -16,7 +16,10 @@ import { mainReducer } from './store/reducers';
 	bootstrap: [ AppComponent ]
 })
 export class AppModule {
-	constructor(private ngRedux: NgRedux<AppState>) {
-		ngRedux.configureStore(mainReducer, INITIAL_STATE);
+	constructor(private ngRedux: NgRedux<AppState>, private devTools: DevToolsExtension) {
+		let enhancers = [];
+		// TODO Add dev-mode check
+		if (devTools.isEnabled) enhancers = [ ...enhancers, devTools.enhancer() ];
+		ngRedux.configureStore(mainReducer, INITIAL_STATE, [], enhancers);
 	}
 }
