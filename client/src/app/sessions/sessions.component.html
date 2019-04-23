@@ -26,7 +26,8 @@
         </mat-card-actions>
       </mat-card>
     </div>
-    <button mat-fab color="accent" id="add-session-btn" (click)="addSession()">+</button>
+    <button *ngIf="!!user && user.isAdmin()" mat-fab color="accent"
+      id="add-session-btn" (click)="addSession()">+</button>
   </div>
 
   <div class="col">
