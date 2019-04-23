@@ -9,12 +9,9 @@
     <a class="home-link" mat-button routerLink="/">Awesome User</a>
   </mat-toolbar>
 
-
-  <!-- TODO Activate and deactivate based on link -->
-  <!-- 
-  <div id="home-info">
+  <router-outlet #outlet></router-outlet>
+  <div id="home-info" *ngIf="!outlet.isActivated">
     <p>Angular Conference</p>
     <p>Be unbounded!</p>
-  </div> -->
-  <router-outlet></router-outlet>
+  </div>
 </main>
