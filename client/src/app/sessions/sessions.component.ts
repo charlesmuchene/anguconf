@@ -1,5 +1,5 @@
 import { Action } from './../models/action.model';
-import { SERVER_SESSIONS } from './../store/actions';
+import { SERVER_SESSIONS, createServerSessionsAction } from './../store/actions';
 import { SessionsService } from './sessions.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Session } from '../models/session.model';
@@ -87,7 +87,7 @@ export class SessionsComponent implements OnInit, OnDestroy {
 
 	private getSessions() {
 		this.sessionsFetchSubscription = this.sessionsService.getSessions().subscribe((sessions) => {
-			this.ngRedux.dispatch<Action>({ type: SERVER_SESSIONS, payload: sessions });
+			this.ngRedux.dispatch<Action>(createServerSessionsAction(sessions));
 		});
 	}
 
