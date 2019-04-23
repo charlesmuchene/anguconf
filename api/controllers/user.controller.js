@@ -3,7 +3,7 @@ const ApiError = require('../models/error.model');
 const jwt = require('jsonwebtoken');
 
 const secret = process.env.TOKEN_SECRET;
-const tokenHeader = 'token';
+const tokenHeader = 'Authorization';
 
 //Create and save a new user
 exports.create=(request,response)=>{
@@ -16,7 +16,7 @@ exports.create=(request,response)=>{
 
     user.save().then((data) => {
         const token = generateToken(user);
-        response.set(tokenHeader, token).json(data)
+        response.set(tokenHeader, token).json({token})
     })
     .catch((error) =>response.status(500).json(new ApiError(500, error.message || 'Error while creating a User'))
 );
@@ -35,9 +35,7 @@ exports.login = (req, res, next) => {
             const match = user.verifyPassword(password)
             if (match) {
                 const token = generateToken(user);
-                res.set(tokenHeader, token).json({
-                    message: 'Logged in successfully'
-                })
+                res.set(tokenHeader, token).json({ token })
             } else {
                 res.status(400).json(new ApiError(400, 'Invalid credentials'))
             }
