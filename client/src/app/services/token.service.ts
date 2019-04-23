@@ -28,4 +28,12 @@ export class TokenService {
 		const token = this.jwtService.decodeToken(rawToken);
 		return null;
 	}
+
+	isLoggedInFromToken(token: string | null): boolean {
+		return this.jwtService.isTokenExpired(token ? token : this.ngRedux.getState().accessToken);
+	}
+
+	private decodeToken(token: string): any {
+		return this.jwtService.decodeToken(token);
+	}
 }
