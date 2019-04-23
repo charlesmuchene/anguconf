@@ -18,6 +18,33 @@ exports.create=(request,response)=>{
 );
 };
 
+exports.login = (request, response, next) => {
+    let credentials = req.body;
+	user.findOne({ email: credentials.email }, (err, user) => {
+		if (err) next(err);
+		//Email exists
+		if (user) {
+			if (!user.verifyPassword(credentials.password)) {
+				res.status(400).json({
+					status: 'fail',
+					message: 'Incorrect password!'
+				});
+			} else {
+				// token key
+				const token = jwt.sign({}, RSA_PRIVATE_KEY, {
+					algorithm: 'RS256',
+					expiresIn: 3600
+				});
+			}
+		} else {
+			res.status(400).json({
+				status: 'fail',
+				message: 'username does not exist'
+			});
+		}
+	});
+}
+
 // Retrieve and return all users
 exports.findAll = (request, response) => {
 User.find()
