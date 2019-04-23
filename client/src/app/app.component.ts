@@ -1,6 +1,7 @@
+import { Router } from '@angular/router';
 import { ACCESS_TOKEN } from './store/actions';
 import { TokenService } from './services/token.service';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select } from '@angular-redux/store';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,13 +11,19 @@ import { map } from 'rxjs/operators';
 	templateUrl: './app.template.html',
 	styleUrls: [ './app.style.css' ]
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
 	private title = 'Anguconf';
 	private loggedIn = false;
 	private tokenSubscription: Subscription;
 	@select(ACCESS_TOKEN) accessToken$: Observable<string>;
 
-	constructor(private tokenService: TokenService) {}
+	constructor(private tokenService: TokenService, private router: Router) {}
+
+	ngOnInit() {}
+
+	ngAfterViewInit(): void {
+		setTimeout(() => this.observeStore());
+	}
 
 	private observeStore() {
 		this.tokenSubscription = this.accessToken$
@@ -26,5 +33,10 @@ export class AppComponent implements OnDestroy {
 
 	ngOnDestroy() {
 		this.tokenSubscription.unsubscribe();
+	}
+
+	private logout() {
+		this.tokenService.logout();
+		this.router.navigateByUrl('/');
 	}
 }
