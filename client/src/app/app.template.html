@@ -2,11 +2,11 @@
   <mat-toolbar color="primary" class="navbar">
     <a id="title" mat-button routerLink="/">{{title}}</a>
     <span id="spacer"></span>
-    <a class="home-link" mat-button routerLink="sessions">Sessions</a>
+    <a *ngIf="loggedIn" class="home-link" mat-button routerLink="sessions">Sessions</a>
     <a class="home-link" mat-button routerLink="buy-tickets">Buy Tickets</a>
     <a class="home-link" mat-button routerLink="sign-up">Sign Up</a>
     <a class="home-link" mat-button routerLink="login">Login</a>
-    <a class="home-link" mat-button routerLink="/">Awesome User</a>
+    <a *ngIf="loggedIn" class="home-link" mat-button routerLink="/">Awesome User</a>
   </mat-toolbar>
 
   <router-outlet #outlet></router-outlet>
