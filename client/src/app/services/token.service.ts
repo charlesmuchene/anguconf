@@ -14,7 +14,7 @@ import { Observable, Subscription } from 'rxjs';
 export class TokenService implements OnDestroy {
 	@select(ACCESS_TOKEN) accessToken$: Observable<string>;
 
-	readonly user: User = null;
+	user: User = null;
 	private jwtService = new JwtHelperService();
 	private accessTokenSubscription: Subscription;
 
