@@ -11,6 +11,7 @@ services:
       - /usr/src/app/node_modules
     depends_on:
       - mongo
+    command: ["./wait-for-it.sh", "mongo:27017", "-t", "5", "--", "nodemon"]
 
   client:
     container_name: client
