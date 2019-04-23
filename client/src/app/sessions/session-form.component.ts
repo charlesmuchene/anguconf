@@ -1,8 +1,11 @@
+import { SessionsService } from './sessions.service';
 import { DialogComponent } from './dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Session } from '../models/session.model';
 
 @Component({
 	selector: 'app-session-form',
@@ -12,7 +15,12 @@ import { MatDialog } from '@angular/material/dialog';
 export class SessionFormComponent implements OnInit {
 	private sessionForm: FormGroup;
 
-	constructor(private formBuilder: FormBuilder, private dialog: MatDialog) {}
+	constructor(
+		private formBuilder: FormBuilder,
+		private dialog: MatDialog,
+		private router: Router,
+		private sessionsService: SessionsService
+	) {}
 
 	ngOnInit() {
 		this.createForm();
@@ -22,7 +30,7 @@ export class SessionFormComponent implements OnInit {
 		this.sessionForm = this.formBuilder.group({
 			title: [ 'All architecture', [ Validators.required, Validators.min(3) ] ],
 			content: [ 'All about architecture', [ Validators.required, Validators.min(3) ] ],
-			time: [ new Date(), [ Validators.required ] ]
+			date: [ new Date(), [ Validators.required ] ]
 		});
 	}
 
@@ -33,12 +41,15 @@ export class SessionFormComponent implements OnInit {
 
 	private cancel() {
 		this.dialog.open(DialogComponent).afterClosed().subscribe((result) => {
-			// TODO route admin to sessions
+			if (result) this.router.navigateByUrl('/sessions');
 		});
 	}
 
 	private onSubmit() {
-		console.log('Submitted', this.sessionForm.valid);
-		// TODO Make ajax call to store session
+		const title = this.sessionForm.value.time;
+		const content = this.sessionForm.value.content;
+		const date = this.sessionForm.value.date;
+		const session = new Session(title, content, date);
+		this.sessionsService.uploadSession(session).subscribe((result) => console.log('Uploading session', result));
 	}
 }
