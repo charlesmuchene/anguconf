@@ -11,4 +11,8 @@ export class ApiService {
 	get<T>(url: string): Observable<T> {
 		return this.http.get(url) as Observable<T>;
 	}
+
+	post(url: string, body: Object) {
+		return this.http.post(url, body);
+	}
 }
