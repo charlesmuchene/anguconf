@@ -1,9 +1,13 @@
+import { Action } from './../models/action.model';
+import { SERVER_SESSIONS } from './../store/actions';
 import { SessionsService } from './sessions.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Session } from '../models/session.model';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList } from '@angular/cdk/drag-drop';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { NgRedux, select } from '@angular-redux/store';
+import { AppState } from '../store/store';
 
 @Component({
 	selector: 'app-sessions',
@@ -11,22 +15,32 @@ import { Subscription } from 'rxjs';
 	styleUrls: [ './sessions.component.css' ]
 })
 export class SessionsComponent implements OnInit, OnDestroy {
+	private userListId = 'user-list';
 	private allSessions: Session[] = [];
 	private userSessions: Session[] = [];
-	private userListId = 'user-list';
-	private sessionsLoadSubscription: Subscription;
+	private sessionsStoreSubscription: Subscription;
+	private sessionsFetchSubscription: Subscription;
+
+	@select(SERVER_SESSIONS) serverSessions: Observable<Session[]>;
 
 	@ViewChild('allList') allList: CdkDropList;
 	@ViewChild('userList') userList: CdkDropList;
 
-	constructor(private sessionsService: SessionsService, private router: Router, private route: ActivatedRoute) {
+	constructor(
+		private sessionsService: SessionsService,
+		private router: Router,
+		private route: ActivatedRoute,
+		private ngRedux: NgRedux<AppState>
+	) {}
+
+	ngOnInit() {
+		this.registerStoreListeners();
 		this.getSessions();
 	}
 
-	ngOnInit() {}
-
 	ngOnDestroy(): void {
-		this.sessionsLoadSubscription.unsubscribe();
+		this.sessionsStoreSubscription.unsubscribe();
+		this.sessionsFetchSubscription.unsubscribe();
 	}
 
 	drop(event: CdkDragDrop<Session[]>) {
@@ -72,8 +86,14 @@ export class SessionsComponent implements OnInit, OnDestroy {
 	}
 
 	private getSessions() {
-		this.sessionsLoadSubscription = this.sessionsService.getSessions().subscribe((sessions) => {
-			this.allSessions = sessions;
+		this.sessionsFetchSubscription = this.sessionsService.getSessions().subscribe((sessions) => {
+			this.ngRedux.dispatch<Action>({ type: SERVER_SESSIONS, payload: sessions });
+		});
+	}
+
+	private registerStoreListeners() {
+		this.sessionsStoreSubscription = this.serverSessions.subscribe((sessions) => {
+			this.allSessions = sessions || [];
 		});
 	}
 }
