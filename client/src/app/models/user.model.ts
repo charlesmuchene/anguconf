@@ -7,4 +7,8 @@ export class User {
 	isAdmin(): boolean {
 		return this.role == 'admin';
 	}
+
+	getName() {
+		return `${this.firstname} ${this.lastname}`;
+	}
 }
