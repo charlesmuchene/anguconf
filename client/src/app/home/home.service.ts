@@ -1,11 +1,25 @@
+import { TokenService } from './../services/token.service';
 import { Injectable } from '@angular/core';
 import { ApiService } from '../services/api.service';
+import { User } from '../models/user.model';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class HomeService {
-	constructor(private apiService: ApiService) {}
+	private usersUrl = `${ApiService.baseUrl}/users`;
 
-	login() {
-		// TODO Make api request to login
+	constructor(private apiService: ApiService, private tokenService: TokenService) {
+	}
+
+	login(user: User) {
+		const url = `${this.usersUrl}/login`;
+		return this.apiService.post(url, user)
+		.pipe(
+			map(data => {
+				const token = data.token;
+				if (!!token) this.tokenService.saveToken(token)
+				return !!token;
+			})	
+		)
 	}
 }

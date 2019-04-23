@@ -21,16 +21,16 @@ export class SignUpComponent implements OnInit {
 	private createForm() {
 		this.signupForm = this.formBuilder.group(
 			{
-				firstname: [ 'Charlo', [ Validators.required ] ],
-				lastname: [ 'Muchene', [ Validators.required ] ],
+				firstname: [ '', [ Validators.required ] ],
+				lastname: [ '', [ Validators.required ] ],
 				email: [
-					'charlo@internet.mwa',
+					'',
 					[ Validators.required, Validators.email ],
 					this.asyncEmailValidator.bind(this)
 				],
-				password: [ 'password', [ Validators.required, Validators.min(3) ] ],
-				confirmpassword: [ 'password', [ Validators.required ] ],
-				terms: [ 'true', [ Validators.required ] ]
+				password: [ '', [ Validators.required, Validators.min(3) ] ],
+				confirmpassword: [ '', [ Validators.required ] ],
+				terms: [ '', [ Validators.required ] ]
 			},
 			{ validators: this.passwordMatchValidator }
 		);
