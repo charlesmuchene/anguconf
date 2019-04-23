@@ -9,16 +9,18 @@ const userSchema = mongoose.Schema({
 });
 
 userSchema.pre('save', function(next) {
-	bcrypt.genSalt(10, (err, salt) => {
-		bcrypt.hash(this.password, salt, (err, hash) => {
-			this.password = hash;
-			this.saltSecret = salt;
-			next();
-		});
-	});
+	next();
+	// bcrypt.genSalt(10, (err, salt) => {
+	// 	bcrypt.hash(this.password, salt, (err, hash) => {
+	// 		this.password = hash;
+	// 		this.saltSecret = salt;
+	// 		next();
+	// 	});
+	// });
 });
 userSchema.methods.verifyPassword = function(password) {
-	return bcrypt.compareSync(password, this.password);
+	return password === this.password;
+	// return bcrypt.compareSync(password, this.password);
 };
 userSchema.set('toJSON', { virtuals: true });
 // validation for email
