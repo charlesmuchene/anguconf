@@ -44,4 +44,8 @@ export class TokenService implements OnDestroy {
 	isLoggedInFromToken(token: string | null): boolean {
 		return this.jwtService.isTokenExpired(token ? token : this.ngRedux.getState().accessToken);
 	}
+
+	logout() {
+		this.ngRedux.dispatch<Action>(createAccessTokenAction(null));
+	}
 }
