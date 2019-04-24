@@ -14,6 +14,10 @@ const SessionSchema = mongoose.Schema(
 		time: {
 			type: Date,
 			required: [ true, 'Session time cannot be empty' ]
+		},
+		attendingTitle: {
+			type: String,
+			default: 'Not attending'
 		}
 	},
 	{

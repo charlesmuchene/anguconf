@@ -77,4 +77,4 @@ app.use((error, request, response, next) => {
 /// Boot app
 
 // listen for requests
-app.listen(1234, () => console.log('Server is listening on port 1234'));
+app.listen(1234, () => console.log('Server is listening on port 1234...'));

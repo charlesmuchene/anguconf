@@ -86,7 +86,6 @@ exports.findOne = (request, response) => {
 //Deleting a user
 exports.delete = (request, response) => {
 	const id = request.params.userId;
-	console.log(id);
 	User.findByIdAndRemove(id)
 		.then((user) => {
 			response.json(user);
@@ -103,7 +102,6 @@ exports.delete = (request, response) => {
 // update a User
 exports.update = (request, response) => {
 	const id = request.params.userId;
-	console.log(id);
 	User.findByIdAndUpdate(id, request.body, { new: true })
 		.then((user) => {
 			response.status(200).json(user);
