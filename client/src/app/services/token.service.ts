@@ -42,7 +42,7 @@ export class TokenService implements OnDestroy {
 		return this.jwtService.decodeToken(rawToken);
 	}
 
-	isLoggedInFromToken(token: string | null): boolean {
+	isLoggedInFromToken(token: string | null = null): boolean {
 		return !this.jwtService.isTokenExpired(token ? token : this.ngRedux.getState().accessToken);
 	}
 
