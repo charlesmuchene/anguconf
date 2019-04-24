@@ -14,7 +14,8 @@ exports.create=(request,response)=>{
     user.password=request.body.password,
     user.email=request.body.email,
 
-    user.save().then((data) => {
+    user.save().then((error, data) => {
+        if (error) return next(error)
         const token = generateToken(user);
         response.set(tokenHeader, token).json({token})
     })

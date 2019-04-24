@@ -7,10 +7,11 @@ router.get('/', user.findAll);
 //Retrieve user with the given id
 router.get('/:userId', user.findOne);
 
-//create user
-router.post('/signup', user.create);
-
+// login user
 router.post('/login', user.login);
+
+//create user
+router.post('/', user.create);
 
 //upate user with given id
 router.put('/:userId', user.update);
