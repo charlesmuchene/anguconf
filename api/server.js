@@ -34,6 +34,7 @@ mongoose
 	.then(() => console.log('Connected to db...'))
 	.catch((error) => console.log(`Error connecting to db: ${error.message}`));
 
+const port = process.env.PORT || 1234;
 const appPath = path.join(__dirname, '../client/dist/anguconf');
 const appLogStream = fs.createWriteStream(path.join(__dirname, 'app.log'), { flags: 'a' });
 
@@ -87,4 +88,4 @@ app.use((error, request, response, next) => {
 /// Boot app
 
 // listen for requests
-app.listen(1234, () => console.log('Server is listening on port 1234...'));
+app.listen(port, () => console.log(`Server is listening on port ${port}...`));

@@ -4,10 +4,14 @@
 	"description": "Anguconf API",
 	"main": "server.js",
 	"scripts": {
-		"debug": "nodemon --inspect"
+		"debug": "nodemon --inspect",
+		"start": "node server.js"
 	},
 	"keywords": [],
 	"author": "Team",
+	"engines": {
+		"node": "11.14.0"
+	},
 	"dependencies": {
 		"bcrypt": "^3.0.6",
 		"body-parser": "^1.18.3",
