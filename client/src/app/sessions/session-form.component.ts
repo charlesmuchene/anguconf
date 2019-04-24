@@ -47,7 +47,7 @@ export class SessionFormComponent implements OnInit {
 
 	onSubmit() {
 		const date = this.sessionForm.value.date;
-		const title = this.sessionForm.value.time;
+		const title = this.sessionForm.value.title;
 		const content = this.sessionForm.value.content;
 		const session = new Session(title, content, date);
 		this.sessionsService.uploadSession(session).subscribe((result) => this.router.navigateByUrl('/sessions'));
