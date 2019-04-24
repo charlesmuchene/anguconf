@@ -4,7 +4,7 @@ import { Session } from '../models/session.model';
 import { NgRedux } from '@angular-redux/store';
 import { AppState } from '../store/store';
 import { Action } from '../models/action.model';
-import { createServerSessionsAction, createUserSessionsAction } from '../store/actions';
+import { createServerSessionsAction, createUserSessionsAction, SERVER_SESSIONS } from '../store/actions';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -14,14 +14,22 @@ export class SessionsService {
 	constructor(private apiService: ApiService, private ngRedux: NgRedux<AppState>) {}
 
 	getSessions() {
-		return this.apiService.get<Session[]>(this.sessionUrl).subscribe((sessions) => {
-			sessions = Object.keys(sessions).length == 0 ? [] : sessions;
-			this.ngRedux.dispatch<Action>(createServerSessionsAction(sessions));
-		});
+		return this.apiService.get<Session[]>(this.sessionUrl).subscribe(
+			(sessions) => {
+				sessions = Object.keys(sessions).length == 0 ? [] : sessions;
+				this.ngRedux.dispatch<Action>(createServerSessionsAction(sessions));
+				this.saveServerSessions(sessions);
+			},
+			(error) => console.log(error)
+		);
 	}
 
 	saveUserSessions(sessions: Session[]) {
 		this.ngRedux.dispatch<Action>(createUserSessionsAction(sessions));
+	}
+
+	saveServerSessions(sessions: Session[]) {
+		localStorage.setItem(SERVER_SESSIONS, JSON.stringify(sessions));
 	}
 
 	uploadSession(session: Session): Observable<any> {

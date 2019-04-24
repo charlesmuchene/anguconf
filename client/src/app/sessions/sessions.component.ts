@@ -96,7 +96,7 @@ export class SessionsComponent implements OnInit, OnDestroy {
 		this.sessionsStoreSubscription = this.serverSessions$.subscribe((sessions) => {
 			this.allSessions = sessions || [];
 		});
- 
+
 		this.userSessionsStoreSubscription = this.userSessions$.subscribe(
 			(sessions) => (this.userSessions = sessions || [])
 		);

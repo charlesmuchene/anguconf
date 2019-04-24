@@ -46,10 +46,10 @@ export class SessionFormComponent implements OnInit {
 	}
 
 	private onSubmit() {
+		const date = this.sessionForm.value.date;
 		const title = this.sessionForm.value.time;
 		const content = this.sessionForm.value.content;
-		const date = this.sessionForm.value.date;
 		const session = new Session(title, content, date);
-		this.sessionsService.uploadSession(session).subscribe((result) => console.log('Uploading session', result));
+		this.sessionsService.uploadSession(session).subscribe((result) => this.router.navigateByUrl('/sessions'));
 	}
 }

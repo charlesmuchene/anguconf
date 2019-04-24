@@ -34,6 +34,7 @@ export class TokenService implements OnDestroy {
 
 	saveToken(token: string) {
 		this.ngRedux.dispatch<Action>(createAccessTokenAction(token));
+		localStorage.setItem(ACCESS_TOKEN, token);
 	}
 
 	private getUser(token: string | null = null): User | null {

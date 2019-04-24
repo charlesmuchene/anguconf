@@ -43,10 +43,6 @@ export class AppModule {
 }
 
 export function tokenOptionsFactory(tokenService: TokenService) {
-	const token =
-		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQ2hhcmxvIiwiZW1haWwiOiJjaGFybG9AaW50ZXJuZXQubXdhIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTU2MDI5NDY1LCJleHAiOjE1NTYxMTU4NjV9.KbjkDAkLhVW4jXmZc_Wo_yETx3GLAim2CBnmYHLa6IQ';
-	tokenService.saveToken(token);
-
 	return {
 		whitelistedDomains: [ 'localhost:1234' ],
 		tokenGetter: () => tokenService.getAccessToken()
