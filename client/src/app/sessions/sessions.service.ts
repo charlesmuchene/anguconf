@@ -9,12 +9,13 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class SessionsService {
-	private sessionUrl = 'http://localhost:1234/api/sessions';
+	private sessionUrl = `${ApiService.baseUrl}/sessions`;
 
 	constructor(private apiService: ApiService, private ngRedux: NgRedux<AppState>) {}
 
 	getSessions() {
 		return this.apiService.get<Session[]>(this.sessionUrl).subscribe((sessions) => {
+			sessions = Object.keys(sessions).length == 0 ? [] : sessions;
 			this.ngRedux.dispatch<Action>(createServerSessionsAction(sessions));
 		});
 	}

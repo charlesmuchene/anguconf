@@ -5,7 +5,8 @@ const userSchema = mongoose.Schema({
 	firstname: { type: String, required: true },
 	lastname: { type: String, required: true },
 	email: { type: String, required: true, unique: true },
-	password: { type: String, required: true, unique: true }
+	password: { type: String, required: true },
+	role:{ type: String, enum: ['admin', 'user'], default: 'user' }
 });
 
 userSchema.pre('save', function(next) {
@@ -17,9 +18,11 @@ userSchema.pre('save', function(next) {
 		});
 	});
 });
+
 userSchema.methods.verifyPassword = function(password) {
 	return bcrypt.compareSync(password, this.password);
 };
+
 userSchema.set('toJSON', { virtuals: true });
 // validation for email
 userSchema.path('email').validate((val) => {

@@ -1,8 +1,7 @@
 export class User {
-	firstname: string;
-	lastname: string;
-	email: string;
-	role: string;
+	private role = 'user';
+	constructor(public firstname: string = '', public lastname: string  = '', public email: string, public password: string) {
+	}
 
 	isAdmin(): boolean {
 		return this.role == 'admin';

@@ -3,6 +3,8 @@ import { LoginModel } from '../../models/login.models';
 import { Component, OnInit } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { User } from 'src/app/models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-login',
@@ -13,7 +15,7 @@ export class LoginComponent implements OnInit {
 	user: LoginModel = new LoginModel();
 	private loginForm: FormGroup;
 
-	constructor(private formBuilder: FormBuilder, private homeService: HomeService) {}
+	constructor(private formBuilder: FormBuilder, private homeService: HomeService, private router: Router) {}
 
 	ngOnInit() {
 		this.createForm();
@@ -21,12 +23,18 @@ export class LoginComponent implements OnInit {
 
 	private createForm() {
 		this.loginForm = this.formBuilder.group({
-			email: [ 'charlo@internet.mwa', [ Validators.required, Validators.email ] ],
+			email: [ 'red@meng.er', [ Validators.required, Validators.email ] ],
 			password: [ 'password', [ Validators.required, Validators.minLength(6), Validators.maxLength(30) ] ]
 		});
 	}
 	onSubmit() {
-		console.log(this.loginForm.valid);
-		// TODO Use homeservice to do api request to login user
+		const email = this.loginForm.get('email').value;
+		const password = this.loginForm.get('password').value;
+		const user = new User('', '', email, password);
+		this.homeService.login(user)
+		.subscribe(loggedIn => {
+			if (loggedIn) this.router.navigateByUrl('/sessions');
+			else confirm('Invalid credentials')
+		})
 	}
 }
