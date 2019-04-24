@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 	styleUrls: [ './tickets.component.css' ]
 })
 export class TicketsComponent implements OnInit {
-	private ticketForm: FormGroup;
+	ticketForm: FormGroup;
 	constructor(
 		private fb: FormBuilder,
 		private router: Router,

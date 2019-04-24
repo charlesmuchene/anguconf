@@ -13,8 +13,8 @@ import { map } from 'rxjs/operators';
 	styleUrls: [ './app.style.css' ]
 })
 export class AppComponent implements OnInit, OnDestroy {
-	private title = 'Anguconf';
-	private loggedIn = false;
+	title = 'Anguconf';
+	loggedIn = false;
 	private tokenSubscription: Subscription;
 	@select(ACCESS_TOKEN) accessToken$: Observable<string>;
 
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		this.tokenSubscription.unsubscribe();
 	}
 
-	private logout() {
+	logout() {
 		this.snackBar.open('Logged out successfully', '', { verticalPosition: 'top', horizontalPosition: 'end' });
 		this.tokenService.logout();
 		this.router.navigateByUrl('/');

@@ -7,13 +7,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-sign-up',
-	templateUrl: '/sign-up.component.html',
+	templateUrl: './sign-up.component.html',
 	styleUrls: [ './sign-up.component.css' ]
 })
 export class SignUpComponent implements OnInit {
-	private signupForm: FormGroup;
-	private emailalreadyexists = 'emailalreadyexists';
-	private unmatchedPasswords = 'unmatchedpasswords';
+	signupForm: FormGroup;
+	emailalreadyexists = 'emailalreadyexists';
+	unmatchedPasswords = 'unmatchedpasswords';
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -56,7 +56,7 @@ export class SignUpComponent implements OnInit {
 		return password && confirm && password.value === confirm.value ? null : { unmatchedpasswords: true };
 	}
 
-	private onSubmit() {
+	onSubmit() {
 		const firstname = this.signupForm.get('firstname').value;
 		const lastname = this.signupForm.get('lastname').value;
 		const email = this.signupForm.get('email').value;

@@ -15,10 +15,10 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList } from '@a
 	styleUrls: [ './sessions.component.css' ]
 })
 export class SessionsComponent implements OnInit, OnDestroy {
-	private user: User = null;
-	private userListId = 'user-list';
-	private allSessions: Session[] = [];
-	private userSessions: Session[] = [];
+	user: User = null;
+	userListId = 'user-list';
+	allSessions: Session[] = [];
+	userSessions: Session[] = [];
 	private sessionsStoreSubscription: Subscription;
 	private userSessionsStoreSubscription: Subscription;
 
@@ -81,14 +81,14 @@ export class SessionsComponent implements OnInit, OnDestroy {
 		session.attendingTitle = attending ? 'Attending' : 'Not attending';
 	}
 
-	private onAttendanceChanged(checked: boolean, index: number, session: Session, event: string) {
+	onAttendanceChanged(checked: boolean, index: number, session: Session, event: string) {
 		const inUserList = event === this.userListId;
 		const previous = inUserList ? this.userList : this.allList;
 		const current = inUserList ? this.allList : this.userList;
 		this.transferItem(session, previous, current, index, 0);
 	}
 
-	private addSession() {
+	addSession() {
 		this.router.navigate([ 'create' ], { relativeTo: this.route });
 	}
 
