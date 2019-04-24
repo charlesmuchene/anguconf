@@ -9,6 +9,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
+const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
 
@@ -33,6 +34,7 @@ mongoose
 	.then(() => console.log('Connected to db...'))
 	.catch((error) => console.log(`Error connecting to db: ${error.message}`));
 
+const appPath = path.join(__dirname, '../client/dist/anguconf');
 const appLogStream = fs.createWriteStream(path.join(__dirname, 'app.log'), { flags: 'a' });
 
 app.disable('x-powered-by');
@@ -54,6 +56,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
+
+// static files
+app.use(favicon(path.join(appPath, 'favicon.ico')));
+app.use(express.static(appPath));
 
 /// Routes
 
