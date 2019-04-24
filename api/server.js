@@ -5,6 +5,7 @@ require('dotenv').config({ debug: process.env.DEBUG });
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
+const helmet = require('helmet');
 const morgan = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -43,6 +44,9 @@ app.enable('case sensitive routing');
 // cors
 app.use(cors());
 
+// helmet
+app.use(helmet());
+
 // logger
 app.use(morgan('combined', { stream: appLogStream }));
 // parse requests of content-type - application/x-www-form-urlencoded
@@ -55,7 +59,7 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
 	res.json({
-		message: 'Anguconf. See you there!'
+		message : 'Anguconf. See you there!'
 	});
 });
 
