@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 @NgModule({
 	declarations: [ LoginComponent, SignUpComponent ],
@@ -22,9 +23,10 @@ import { MatButtonModule } from '@angular/material/button';
 		MatFormFieldModule,
 		MatCardModule,
 		MatCheckboxModule,
-		MatButtonModule
+		MatButtonModule,
+		MatSnackBarModule
 	],
-	providers: [ HomeService ],
+	providers: [ HomeService, { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } } ],
 	bootstrap: [ LoginComponent, SignUpComponent ]
 })
 export class HomeModule {}
