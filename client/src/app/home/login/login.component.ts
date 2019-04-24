@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HomeService } from './../home.service';
 import { LoginModel } from '../../models/login.models';
 import { Component, OnInit } from '@angular/core';
@@ -13,9 +14,14 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 	user: LoginModel = new LoginModel();
-	private loginForm: FormGroup;
+	loginForm: FormGroup;
 
-	constructor(private formBuilder: FormBuilder, private homeService: HomeService, private router: Router) {}
+	constructor(
+		private formBuilder: FormBuilder,
+		private homeService: HomeService,
+		private router: Router,
+		private snackBar: MatSnackBar
+	) {}
 
 	ngOnInit() {
 		this.createForm();
@@ -23,18 +29,27 @@ export class LoginComponent implements OnInit {
 
 	private createForm() {
 		this.loginForm = this.formBuilder.group({
-			email: [ 'red@meng.er', [ Validators.required, Validators.email ] ],
+			email: [ 'mwa@web.conf', [ Validators.required, Validators.email ] ],
 			password: [ 'password', [ Validators.required, Validators.minLength(6), Validators.maxLength(30) ] ]
 		});
 	}
+
 	onSubmit() {
 		const email = this.loginForm.get('email').value;
 		const password = this.loginForm.get('password').value;
 		const user = new User('', '', email, password);
-		this.homeService.login(user)
-		.subscribe(loggedIn => {
-			if (loggedIn) this.router.navigateByUrl('/sessions');
-			else confirm('Invalid credentials')
-		})
+		this.homeService.login(user).subscribe(
+			(loggedIn) => {
+				if (loggedIn) {
+					this.snackBar.open('Logged in successfully', '', {
+						verticalPosition: 'top',
+						horizontalPosition: 'end'
+					});
+					this.router.navigateByUrl('/sessions');
+				} else confirm('Invalid credentials');
+			},
+			(error) =>
+				this.snackBar.open('Invalid credentials', '', { verticalPosition: 'top', horizontalPosition: 'end' })
+		);
 	}
 }

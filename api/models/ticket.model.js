@@ -1,23 +1,26 @@
 const mongoose = require('mongoose');
 
 const ticketSchema = mongoose.Schema({
-	fullName: {
-		type: String,
-		unique: true,
-		required: "Full name can't be empty"
+	name    : {
+		type     : String,
+		required : "Name can't be empty"
 	},
-	quantity: Number,
-	email: {
-		type: String,
-		required: "Email can't be empty",
-		unique: true
+	email   : {
+		type     : String,
+		required : "Email can't be empty",
+		unique   : true
 	},
-	amount: Number,
-	payment: {
-		cardNo: Number,
-		cardType: String
+	phone   : {
+		type     : String,
+		required : 'Phone number cannot be empty'
+	},
+	amount  : Number,
+	payment : {
+		cardNo   : Number,
+		cardType : String
 	}
 });
+
 ticketSchema.set('toJSON', { virtuals: true });
 // validation for email
 ticketSchema.path('email').validate((val) => {

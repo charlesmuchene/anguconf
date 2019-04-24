@@ -5,9 +5,11 @@ require('dotenv').config({ debug: process.env.DEBUG });
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
+const helmet = require('helmet');
 const morgan = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
+const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
 
@@ -32,6 +34,8 @@ mongoose
 	.then(() => console.log('Connected to db...'))
 	.catch((error) => console.log(`Error connecting to db: ${error.message}`));
 
+const port = process.env.PORT || 1234;
+const appPath = path.join(__dirname, '../client/dist/anguconf');
 const appLogStream = fs.createWriteStream(path.join(__dirname, 'app.log'), { flags: 'a' });
 
 app.disable('x-powered-by');
@@ -43,6 +47,9 @@ app.enable('case sensitive routing');
 // cors
 app.use(cors());
 
+// helmet
+app.use(helmet());
+
 // logger
 app.use(morgan('combined', { stream: appLogStream }));
 // parse requests of content-type - application/x-www-form-urlencoded
@@ -51,11 +58,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
+// static files
+app.use(favicon(path.join(appPath, 'favicon.ico')));
+app.use(express.static(appPath));
+
 /// Routes
 
 app.get('/', (req, res) => {
 	res.json({
-		message: 'Anguconf. See you there!'
+		message : 'Anguconf. See you there!'
 	});
 });
 
@@ -77,4 +88,4 @@ app.use((error, request, response, next) => {
 /// Boot app
 
 // listen for requests
-app.listen(1234, () => console.log('Server is listening on port 1234'));
+app.listen(port, () => console.log(`Server is listening on port ${port}...`));

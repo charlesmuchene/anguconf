@@ -10,6 +10,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
 	declarations: [ AppComponent ],
@@ -36,20 +37,15 @@ export class AppModule {
 		let enhancers = [];
 
 		// TODO Add dev-mode check
-		if (devTools.isEnabled) enhancers = [ ...enhancers, devTools.enhancer() ];
+		if (!environment.production && devTools.isEnabled) enhancers = [ ...enhancers, devTools.enhancer() ];
 
-		ngRedux.configureStore(mainReducer, INITIAL_STATE, []);
-
+		ngRedux.configureStore(mainReducer, INITIAL_STATE, [], enhancers);
 	}
 }
 
 export function tokenOptionsFactory(tokenService: TokenService) {
-	const token =
-		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQ2hhcmxvIiwiZW1haWwiOiJjaGFybG9AaW50ZXJuZXQubXdhIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTU2MDI5NDY1LCJleHAiOjE1NTYxMTU4NjV9.KbjkDAkLhVW4jXmZc_Wo_yETx3GLAim2CBnmYHLa6IQ';
-	tokenService.saveToken(token);
-
 	return {
-		whitelistedDomains: [ 'localhost:1234' ],
+		whitelistedDomains: [ environment.apiUrl ],
 		tokenGetter: () => tokenService.getAccessToken()
 	};
 }

@@ -16,3 +16,17 @@ form {
 	justify-content: center;
 	padding-top: 10%;
 }
+
+mat-form-field {
+	width: 100%;
+}
+
+.controls {
+	display: flex;
+	justify-content: space-around;
+	flex-direction: row;
+}
+
+.controls > * {
+	width: 40%;
+}

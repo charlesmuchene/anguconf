@@ -3,18 +3,24 @@ import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../home.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-sign-up',
-	templateUrl: '/sign-up.component.html',
+	templateUrl: './sign-up.component.html',
 	styleUrls: [ './sign-up.component.css' ]
 })
 export class SignUpComponent implements OnInit {
-	private signupForm: FormGroup;
-	private emailalreadyexists = 'emailalreadyexists';
-	private unmatchedPasswords = 'unmatchedpasswords';
+	signupForm: FormGroup;
+	emailalreadyexists = 'emailalreadyexists';
+	unmatchedPasswords = 'unmatchedpasswords';
 
-	constructor(private formBuilder: FormBuilder, private homeService: HomeService, private router: Router) {}
+	constructor(
+		private formBuilder: FormBuilder,
+		private homeService: HomeService,
+		private router: Router,
+		private snackBar: MatSnackBar
+	) {}
 
 	ngOnInit() {
 		this.createForm();
@@ -23,10 +29,10 @@ export class SignUpComponent implements OnInit {
 	private createForm() {
 		this.signupForm = this.formBuilder.group(
 			{
-				firstname: [ 'charlo', [ Validators.required ] ],
-				lastname: [ 'muchene', [ Validators.required ] ],
+				firstname: [ 'Internet', [ Validators.required ] ],
+				lastname: [ 'User', [ Validators.required ] ],
 				email: [
-					'charlo@internet.mwa',
+					'mwa@web.conf',
 					[ Validators.required, Validators.email ],
 					this.asyncEmailValidator.bind(this)
 				],
@@ -50,17 +56,25 @@ export class SignUpComponent implements OnInit {
 		return password && confirm && password.value === confirm.value ? null : { unmatchedpasswords: true };
 	}
 
-	private onSubmit() {
+	onSubmit() {
 		const firstname = this.signupForm.get('firstname').value;
 		const lastname = this.signupForm.get('lastname').value;
 		const email = this.signupForm.get('email').value;
 		const password = this.signupForm.get('password').value;
-		
+
 		const user = new User(firstname, lastname, email, password);
-		this.homeService.signup(user)
-		.subscribe(loggedIn => {
-			if (loggedIn) this.router.navigateByUrl('/sessions');
-			else confirm('Could not create user')
-		})
+		this.homeService.signup(user).subscribe(
+			(loggedIn) => {
+				if (loggedIn) {
+					this.snackBar.open('Sign up successful!', '', {
+						verticalPosition: 'top',
+						horizontalPosition: 'end'
+					});
+					this.router.navigateByUrl('/sessions');
+				} else confirm('Error signing up');
+			},
+			(error) =>
+				this.snackBar.open('Email already exists', '', { verticalPosition: 'top', horizontalPosition: 'end' })
+		);
 	}
 }

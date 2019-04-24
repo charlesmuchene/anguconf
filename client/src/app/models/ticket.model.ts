@@ -1,8 +1,7 @@
-export class Ticket{
-    fullName: string;
-    email: string;
-    phone: number;
-    cardno: number;
-    amount: number;
-
+export class Ticket {
+	name: string;
+	email: string;
+	phone: string;
+	cardno: string;
+	amount: string;
 }

@@ -13,7 +13,7 @@ import { Session } from '../models/session.model';
 	styleUrls: [ './session-form.component.css' ]
 })
 export class SessionFormComponent implements OnInit {
-	private sessionForm: FormGroup;
+	sessionForm: FormGroup;
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -39,17 +39,17 @@ export class SessionFormComponent implements OnInit {
 		return null;
 	}
 
-	private cancel() {
+	cancel() {
 		this.dialog.open(DialogComponent).afterClosed().subscribe((result) => {
 			if (result) this.router.navigateByUrl('/sessions');
 		});
 	}
 
-	private onSubmit() {
-		const title = this.sessionForm.value.time;
-		const content = this.sessionForm.value.content;
+	onSubmit() {
 		const date = this.sessionForm.value.date;
+		const title = this.sessionForm.value.title;
+		const content = this.sessionForm.value.content;
 		const session = new Session(title, content, date);
-		this.sessionsService.uploadSession(session).subscribe((result) => console.log('Uploading session', result));
+		this.sessionsService.uploadSession(session).subscribe((result) => this.router.navigateByUrl('/sessions'));
 	}
 }

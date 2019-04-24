@@ -1,3 +1,4 @@
+import { AuthenticatedGuard } from './guards/authenticated.guard';
 import { HomeModule } from './home/home.module';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -8,7 +9,7 @@ const routes: Routes = [
 	{ path: 'login', component: LoginComponent },
 	{ path: 'sign-up', component: SignUpComponent },
 	{ path: 'buy-tickets', loadChildren: './tickets/tickets.module#TicketsModule' },
-	{ path: 'sessions', loadChildren: './sessions/sessions.module#SessionsModule' }
+	{ path: 'sessions', loadChildren: './sessions/sessions.module#SessionsModule', canActivate: [ AuthenticatedGuard ] }
 ];
 
 @NgModule({

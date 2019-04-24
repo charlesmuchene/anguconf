@@ -34,6 +34,7 @@ export class TokenService implements OnDestroy {
 
 	saveToken(token: string) {
 		this.ngRedux.dispatch<Action>(createAccessTokenAction(token));
+		localStorage.setItem(ACCESS_TOKEN, token);
 	}
 
 	private getUser(token: string | null = null): User | null {
@@ -41,11 +42,12 @@ export class TokenService implements OnDestroy {
 		return this.jwtService.decodeToken(rawToken);
 	}
 
-	isLoggedInFromToken(token: string | null): boolean {
+	isLoggedInFromToken(token: string | null = null): boolean {
 		return !this.jwtService.isTokenExpired(token ? token : this.ngRedux.getState().accessToken);
 	}
 
 	logout() {
+		localStorage.clear();
 		this.ngRedux.dispatch<Action>(createAccessTokenAction(null));
 	}
 }

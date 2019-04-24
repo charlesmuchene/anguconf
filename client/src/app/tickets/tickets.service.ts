@@ -4,17 +4,18 @@ import { Observable } from 'rxjs';
 import { Ticket } from '../models/ticket.model';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class TicketsService {
+	private ticketsUrl = `${ApiService.baseUrl}/tickets`;
 
-  constructor(private apiService: ApiService) { }
+	constructor(private apiService: ApiService) {}
 
-  getTickets():Observable<Ticket[]>{
-    return this.apiService.get<Ticket[]>('http://localhost:1234/api/sessions');
-  } 
-  createTicket(ticket: Ticket){
-    this.apiService.post('http://localhost:1234/api/sessions', ticket)
+	getTickets(): Observable<Ticket[]> {
+		return this.apiService.get<Ticket[]>(this.ticketsUrl);
+	}
 
-  }
+	createTicket(ticket: Ticket): Observable<any> {
+		return this.apiService.post(this.ticketsUrl, ticket);
+	}
 }
