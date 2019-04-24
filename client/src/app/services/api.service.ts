@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 	providedIn: 'root'
 })
 export class ApiService {
-	static readonly baseUrl = environment.apiUrl;
+	static readonly baseUrl = environment.apiUrl + '/api';
 
 	constructor(private http: HttpClient) {}
 

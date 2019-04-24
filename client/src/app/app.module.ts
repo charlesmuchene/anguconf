@@ -45,7 +45,12 @@ export class AppModule {
 
 export function tokenOptionsFactory(tokenService: TokenService) {
 	return {
-		whitelistedDomains: [ environment.apiUrl ],
+		whitelistedDomains: [
+			'http://localhost:1234',
+			'localhost:1234',
+			'anguconf.herokuapp.com',
+			'http://anguconf.herokuapp.com'
+		],
 		tokenGetter: () => tokenService.getAccessToken()
 	};
 }
