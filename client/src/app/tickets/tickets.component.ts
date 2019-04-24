@@ -1,38 +1,56 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Ticket } from './../models/ticket.model';
+import { TicketsService } from './tickets.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder,} from "@angular/forms";
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+
 @Component({
-  selector: 'app-tickets',
-  templateUrl: './tickets.component.html',
-  styleUrls: ['./tickets.component.css']
+	selector: 'app-tickets',
+	templateUrl: './tickets.component.html',
+	styleUrls: [ './tickets.component.css' ]
 })
 export class TicketsComponent implements OnInit {
- ticketform: FormGroup;
- submited= false;
-  constructor(private fb: FormBuilder, private router: Router) {
-    this.ticketform= fb.group({
-      fullName: ['',Validators.compose([ Validators.required, Validators.minLength(3)])],
-      email: ['', Validators.compose([Validators.required,
-                                      Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")   ]),
-      
-    ],
-      phone: ['', Validators.minLength(10)],
-        cardNo:['', Validators.required],
-        amount:['', Validators.required],
-    });
-   }
+	private ticketForm: FormGroup;
+	constructor(
+		private fb: FormBuilder,
+		private router: Router,
+		private ticketService: TicketsService,
+		private snackBar: MatSnackBar
+	) {}
 
-  ngOnInit() {
-  }
- onSubmit(){
-  //  if(this.ticketform.valid){
-  //  this.ticketform.reset();
-  //  }
-   this.router.navigateByUrl('/')
- }
+	ngOnInit() {
+		this.createForm();
+	}
 
- onCancel(){
-//  this.ticketform.reset();
-  return this.router.navigateByUrl('/')
- }
+	onSubmit() {
+		const ticket = new Ticket();
+		ticket.name = this.ticketForm.value.name;
+		ticket.email = this.ticketForm.value.email;
+		ticket.phone = this.ticketForm.value.phone;
+		ticket.cardno = this.ticketForm.value.cardno;
+		ticket.amount = this.ticketForm.value.amount;
+		console.log(ticket);
+		this.ticketService.createTicket(ticket).subscribe((result) => {
+			this.snackBar.open('Ticket bought successfully', '', {
+				verticalPosition: 'top',
+				horizontalPosition: 'end'
+			});
+			this.router.navigateByUrl('/sessions');
+		});
+	}
+
+	onCancel() {
+		return this.router.navigateByUrl('/sessions');
+	}
+
+	private createForm() {
+		this.ticketForm = this.fb.group({
+			name: [ 'John Doe', [ Validators.required, Validators.minLength(3) ] ],
+			email: [ 'jdoe@mwa.web', [ Validators.required, Validators.email ] ],
+			phone: [ '+123456789', Validators.minLength(10) ],
+			cardno: [ '987654321', Validators.required ],
+			amount: [ '600', Validators.required ]
+		});
+	}
 }

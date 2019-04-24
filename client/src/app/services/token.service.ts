@@ -47,6 +47,7 @@ export class TokenService implements OnDestroy {
 	}
 
 	logout() {
+		localStorage.clear();
 		this.ngRedux.dispatch<Action>(createAccessTokenAction(null));
 	}
 }

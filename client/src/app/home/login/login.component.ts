@@ -40,8 +40,13 @@ export class LoginComponent implements OnInit {
 		const user = new User('', '', email, password);
 		this.homeService.login(user).subscribe(
 			(loggedIn) => {
-				if (loggedIn) this.router.navigateByUrl('/sessions');
-				else confirm('Invalid credentials');
+				if (loggedIn) {
+					this.snackBar.open('Logged in successfully', '', {
+						verticalPosition: 'top',
+						horizontalPosition: 'end'
+					});
+					this.router.navigateByUrl('/sessions');
+				} else confirm('Invalid credentials');
 			},
 			(error) =>
 				this.snackBar.open('Invalid credentials', '', { verticalPosition: 'top', horizontalPosition: 'end' })

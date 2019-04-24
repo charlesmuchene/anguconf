@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ACCESS_TOKEN } from './store/actions';
 import { TokenService } from './services/token.service';
@@ -17,7 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	private tokenSubscription: Subscription;
 	@select(ACCESS_TOKEN) accessToken$: Observable<string>;
 
-	constructor(private tokenService: TokenService, private router: Router) {}
+	constructor(private tokenService: TokenService, private router: Router, private snackBar: MatSnackBar) {}
 
 	ngOnInit() {}
 
@@ -36,6 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	private logout() {
+		this.snackBar.open('Logged out successfully', '', { verticalPosition: 'top', horizontalPosition: 'end' });
 		this.tokenService.logout();
 		this.router.navigateByUrl('/');
 	}

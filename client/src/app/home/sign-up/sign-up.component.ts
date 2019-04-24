@@ -65,8 +65,13 @@ export class SignUpComponent implements OnInit {
 		const user = new User(firstname, lastname, email, password);
 		this.homeService.signup(user).subscribe(
 			(loggedIn) => {
-				if (loggedIn) this.router.navigateByUrl('/sessions');
-				else confirm('Error signing up');
+				if (loggedIn) {
+					this.snackBar.open('Sign up successful!', '', {
+						verticalPosition: 'top',
+						horizontalPosition: 'end'
+					});
+					this.router.navigateByUrl('/sessions');
+				} else confirm('Error signing up');
 			},
 			(error) =>
 				this.snackBar.open('Email already exists', '', { verticalPosition: 'top', horizontalPosition: 'end' })
