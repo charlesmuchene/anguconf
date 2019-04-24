@@ -1,12 +1,18 @@
-.wrapper {
-height:  80vh;
-justify-content: center;
-display: flex ;
-align-items: center;
-width: 50%;
-margin: auto
-
+mat-card {
+	width: 40%;
+	margin: auto;
 }
-h3{
-    color : blue
+
+form {
+	margin: 15px;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	padding-top: 10%;
 }
