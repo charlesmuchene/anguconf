@@ -1,23 +1,19 @@
+<div class="container">
 <mat-card>
-
+  <mat-card-header>
+    <mat-card-title>Buy Ticket</mat-card-title>
+    <mat-card-subtitle>Fill the the form to pay</mat-card-subtitle>
+  </mat-card-header>
 <mat-card-content>
-<div class="wrapper">
 <form [formGroup]='ticketform' (ngSubmit)="onSubmit()" >
-    <mat-card-header>
-        <mat-card-title>Buying Ticket</mat-card-title>
-        <mat-card-subtitle> To buy a ticket fill the form </mat-card-subtitle>
-      </mat-card-header>
-    <div >
         <mat-form-field>
             <input matInput type="text"  placeholder=" Full Name" formControlName="fullName" required>
         </mat-form-field>
-       </div>
       <div>
           <mat-form-field>
           <input type="email" matInput placeholder="Email" formControlName="email" required>
           
         </mat-form-field>
-        <!-- <div *ngIf="!ticketform.get('email').valid">Invalid Email</div> -->
        </div>
       <div>
         <mat-form-field>
@@ -25,26 +21,29 @@
         </mat-form-field>
   
       </div>
-      <div formGroupName="payment">
-        <div>
-            <mat-form-field>
-                <input type="number" matInput placeholder="Card Number" formControlName="cardNo" required>
-                </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-        <input type="number" matInput placeholder="Payment Amount" formControlName="amount" required>
-        </mat-form-field>
-        </div>
-      </div>
+      <table cellspacing="0" class="full-width">
+        <tr>
+          <td>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Card Number"
+                formControlName="cardNo" required>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Amount You pay"
+                formControlName="amount"
+                required>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
       <div>
-        <button mat-raised-button type="submit" value="Pay" [disabled]="!ticketform.valid">Buy Ticket</button> 
-        <button mat-raised-button type="reset" value="Pay"  (ngCancel)="onCancel()">Cancel Payment</button>
+        <button mat-raised-button type="submit" value="Pay" color='primary' [disabled]="!ticketform.valid">Buy Ticket</button> 
+        <button mat-raised-button type="reset" value="Pay"  color="primary" (ngCancel)="onCancel()">Cancel Payment</button>
       </div>
-  
-  
   </form>
-  </div>
 </mat-card-content>
 
 </mat-card>
+</div>

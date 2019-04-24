@@ -38,7 +38,8 @@ export class AppModule {
 		// TODO Add dev-mode check
 		if (devTools.isEnabled) enhancers = [ ...enhancers, devTools.enhancer() ];
 
-		ngRedux.configureStore(mainReducer, INITIAL_STATE, [], enhancers);
+		ngRedux.configureStore(mainReducer, INITIAL_STATE, []);
+
 	}
 }
 
