@@ -1,6 +1,8 @@
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../home.service';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user.model';
 
 @Component({
 	selector: 'app-sign-up',
@@ -12,7 +14,7 @@ export class SignUpComponent implements OnInit {
 	private emailalreadyexists = 'emailalreadyexists';
 	private unmatchedPasswords = 'unmatchedpasswords';
 
-	constructor(private formBuilder: FormBuilder, private homeService: HomeService) {}
+	constructor(private formBuilder: FormBuilder, private homeService: HomeService, private router: Router) {}
 
 	ngOnInit() {
 		this.createForm();
@@ -21,16 +23,16 @@ export class SignUpComponent implements OnInit {
 	private createForm() {
 		this.signupForm = this.formBuilder.group(
 			{
-				firstname: [ '', [ Validators.required ] ],
-				lastname: [ '', [ Validators.required ] ],
+				firstname: [ 'charlo', [ Validators.required ] ],
+				lastname: [ 'muchene', [ Validators.required ] ],
 				email: [
-					'',
+					'charlo@internet.mwa',
 					[ Validators.required, Validators.email ],
 					this.asyncEmailValidator.bind(this)
 				],
-				password: [ '', [ Validators.required, Validators.min(3) ] ],
-				confirmpassword: [ '', [ Validators.required ] ],
-				terms: [ '', [ Validators.required ] ]
+				password: [ 'password', [ Validators.required, Validators.min(3) ] ],
+				confirmpassword: [ 'password', [ Validators.required ] ],
+				terms: [ 'true' ]
 			},
 			{ validators: this.passwordMatchValidator }
 		);
@@ -49,6 +51,16 @@ export class SignUpComponent implements OnInit {
 	}
 
 	private onSubmit() {
-		console.log(this.signupForm, 'done', this.signupForm.valid);
+		const firstname = this.signupForm.get('firstname').value;
+		const lastname = this.signupForm.get('lastname').value;
+		const email = this.signupForm.get('email').value;
+		const password = this.signupForm.get('password').value;
+		
+		const user = new User(firstname, lastname, email, password);
+		this.homeService.signup(user)
+		.subscribe(loggedIn => {
+			if (loggedIn) this.router.navigateByUrl('/sessions');
+			else confirm('Could not create user')
+		})
 	}
 }

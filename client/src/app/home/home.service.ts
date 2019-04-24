@@ -13,6 +13,14 @@ export class HomeService {
 
 	login(user: User) {
 		const url = `${this.usersUrl}/login`;
+		return this.doPost(url, user)
+	}
+
+	signup(user: User) {
+		return this.doPost(this.usersUrl, user)
+	}
+
+	private doPost(url: string, user: User) {
 		return this.apiService.post(url, user)
 		.pipe(
 			map(data => {
