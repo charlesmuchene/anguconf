@@ -25,15 +25,14 @@ export class TicketsComponent implements OnInit {
   ngOnInit() {
   }
  onSubmit(){
-   if(this.ticketform.valid){
-   console.log("Data submitted successfully");
-   this.ticketform.reset();
-   }
-  //  this.router.navigateByUrl('/')
+  //  if(this.ticketform.valid){
+  //  this.ticketform.reset();
+  //  }
+   this.router.navigateByUrl('/')
  }
 
  onCancel(){
- this.ticketform.reset();
-   console.log("Operation canceled")
+//  this.ticketform.reset();
+  return this.router.navigateByUrl('/')
  }
 }
